@@ -1,47 +1,43 @@
-[gd_scene load_steps=8 format=3 uid="uid://btqsp2thlc5vj"]
+[gd_scene load_steps=8 format=3 uid="uid://bl6ojkqeo683v"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_x2ymt"]
-[ext_resource type="Texture2D" uid="uid://nyqxh0gwjoct" path="res://assets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7/frames/knight_m_run_anim_f0.png" id="2_4o144"]
-[ext_resource type="Texture2D" uid="uid://u2sjxpxmdhxn" path="res://assets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7/frames/knight_m_run_anim_f1.png" id="3_jqa1g"]
-[ext_resource type="Texture2D" uid="uid://dhk2xswgwjm55" path="res://assets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7/frames/knight_m_run_anim_f2.png" id="4_8fpku"]
-[ext_resource type="Texture2D" uid="uid://dan6s5gd8t7ox" path="res://assets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7/frames/knight_m_run_anim_f3.png" id="5_3qq3n"]
+[ext_resource type="Script" path="res://player.gd" id="1_ij4ka"]
+[ext_resource type="Texture2D" uid="uid://nyqxh0gwjoct" path="res://assets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7/frames/knight_m_run_anim_f0.png" id="2_t3g6s"]
+[ext_resource type="Texture2D" uid="uid://u2sjxpxmdhxn" path="res://assets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7/frames/knight_m_run_anim_f1.png" id="3_0nor1"]
+[ext_resource type="Texture2D" uid="uid://dhk2xswgwjm55" path="res://assets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7/frames/knight_m_run_anim_f2.png" id="4_cvl46"]
+[ext_resource type="Texture2D" uid="uid://dan6s5gd8t7ox" path="res://assets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7/frames/knight_m_run_anim_f3.png" id="5_a554r"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_jhfco"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_2fh07"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_4o144")
+"texture": ExtResource("2_t3g6s")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_jqa1g")
+"texture": ExtResource("3_0nor1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_8fpku")
+"texture": ExtResource("4_cvl46")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_3qq3n")
+"texture": ExtResource("5_a554r")
 }],
 "loop": true,
 "name": &"walk",
 "speed": 20.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhrht"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a43al"]
 size = Vector2(9.23077, 13.1222)
 
-[node name="Player" type="CharacterBody2D"]
-position = Vector2(210, 159)
-script = ExtResource("1_x2ymt")
-metadata/_edit_group_ = true
+[node name="Player2" type="CharacterBody2D"]
+script = ExtResource("1_ij4ka")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_jhfco")
+sprite_frames = SubResource("SpriteFrames_2fh07")
 animation = &"walk"
-frame = 2
-frame_progress = 0.831023
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 8.5)
 scale = Vector2(2.6, 2.21)
-shape = SubResource("RectangleShape2D_fhrht")
+shape = SubResource("RectangleShape2D_a43al")
