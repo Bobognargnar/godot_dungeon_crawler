@@ -9,6 +9,9 @@ signal hit # Signals when the player is being hit
 @export var brake = 2000
 var screen_size # Size of the game window.
 
+@onready var weapon = $Weapon # Reference to the Weapon node
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -44,11 +47,27 @@ func _process(delta: float) -> void:
 	if velocity.length() != 0:
 		$AnimatedSprite2D.animation = "walk"
 		$AnimatedSprite2D.flip_v = false
-		# See the note below about the following boolean assignment.
-		$AnimatedSprite2D.flip_h = velocity.x < 0
-		$Weapon.flip_v = velocity.x < 0
-		if $Weapon.flip_v:
-			$Weapon.position = Vector2(-abs($Weapon.position.x), $Weapon.position.y)
-		else:
-			$Weapon.position = Vector2(abs($Weapon.position.x), $Weapon.position.y)
+		
+		if velocity.x < 0 and not $AnimatedSprite2D.flip_h:
+			_turn_left()
+		if velocity.x > 0 and $AnimatedSprite2D.flip_h:
+			_turn_right()
+		
 	move_and_slide()
+
+func _turn_left():
+	"""Creature facing left """
+	$AnimatedSprite2D.flip_h = true
+	$Weapon.rotation = abs($Weapon.rotation)
+	$Weapon.position = Vector2(-$Weapon.position.x, $Weapon.position.y)
+	
+func _turn_right():
+	"""Creature facing right """
+	$AnimatedSprite2D.flip_h = false
+	$Weapon.rotation = -abs($Weapon.rotation)
+	$Weapon.position = Vector2(-$Weapon.position.x, $Weapon.position.y)
+
+# Method to equip a weapon
+func equip_weapon(texture: Texture) -> void:
+	weapon.texture = texture
+	weapon.visible = true

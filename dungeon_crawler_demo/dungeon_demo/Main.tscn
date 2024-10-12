@@ -20,6 +20,7 @@ position = Vector2(130, 471)
 [node name="Level0" parent="." instance=ExtResource("4_0kgsl")]
 
 [node name="Player" parent="." instance=ExtResource("4_j4go3")]
+position = Vector2(134, 466)
 
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="start_game" from="Hud" to="." method="new_game"]

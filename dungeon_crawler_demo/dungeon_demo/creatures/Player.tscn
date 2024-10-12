@@ -43,5 +43,5 @@ scale = Vector2(2.6, 2.21)
 shape = SubResource("RectangleShape2D_a43al")
 
 [node name="Weapon" type="Sprite2D" parent="."]
-position = Vector2(15, 15)
-rotation = 1.5708
+position = Vector2(-10, 5)
+rotation = -0.532325
