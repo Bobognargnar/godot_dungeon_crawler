@@ -1,33 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://q1pjojqjkd3m"]
+[gd_scene load_steps=5 format=3 uid="uid://q1pjojqjkd3m"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_5vgr8"]
-[ext_resource type="PackedScene" uid="uid://btqsp2thlc5vj" path="res://Player.tscn" id="1_h877b"]
 [ext_resource type="PackedScene" uid="uid://bd5qyuaqvyyyw" path="res://Level0.tscn" id="4_0kgsl"]
 [ext_resource type="PackedScene" uid="uid://kbryvmo0ma51" path="res://HUD.tscn" id="4_5oq4r"]
-
-[sub_resource type="Resource" id="Resource_y2dkx"]
-metadata/__load_path__ = "res://Mob.tscn"
+[ext_resource type="PackedScene" uid="uid://bl6ojkqeo683v" path="res://creatures/Player.tscn" id="4_j4go3"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_5vgr8")
-mob_scene = SubResource("Resource_y2dkx")
-
-[node name="TileMapLayer" parent="." instance=ExtResource("4_0kgsl")]
-
-[node name="Player" parent="." instance=ExtResource("1_h877b")]
-
-[node name="ScoreTimer" type="Timer" parent="."]
 
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 
 [node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(240, 450)
+position = Vector2(130, 471)
 
 [node name="Hud" parent="." instance=ExtResource("4_5oq4r")]
 
-[connection signal="hit" from="Player" to="." method="game_over"]
-[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[node name="Level0" parent="." instance=ExtResource("4_0kgsl")]
+
+[node name="Player" parent="." instance=ExtResource("4_j4go3")]
+
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="start_game" from="Hud" to="." method="new_game"]
