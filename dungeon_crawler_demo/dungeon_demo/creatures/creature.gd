@@ -14,12 +14,12 @@ func _ready() -> void:
 	pass
 
 # Manage creature movement. Default creature doesn't move!
-func _move() -> Vector2:
+func _move(delta: float) -> Vector2:
 	return Vector2.ZERO
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var delta_v = _move()
+	var delta_v = _move(delta)
 
 	if delta_v.length() > 0:
 		delta_v = delta_v.normalized() * acc * delta
