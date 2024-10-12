@@ -1,5 +1,12 @@
 extends Creature
 
+@onready var weapon = $Weapon # Reference to the Weapon node
+
+# Method to equip a weapon
+func equip_weapon(texture: Texture) -> void:
+	weapon.texture = texture
+	weapon.visible = true
+
 func _ready() -> void:
 	hide()
 

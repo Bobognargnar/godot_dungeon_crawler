@@ -17,8 +17,10 @@ func _ready() -> void:
 
 var rng = RandomNumberGenerator.new()
 
-# Manage roaming creature movement
+
 func _move(delta: float) -> Vector2:
+	"""Roaming creature moves in random direction
+	"""
 	if moving:
 		move_timer -= delta
 		if move_timer <= 0:

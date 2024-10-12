@@ -45,3 +45,5 @@ animation = &"walk"
 position = Vector2(-2.38419e-07, 1.75002)
 scale = Vector2(2.6, 2.21)
 shape = SubResource("RectangleShape2D_54f0s")
+
+[node name="Weapon" type="Sprite2D" parent="."]

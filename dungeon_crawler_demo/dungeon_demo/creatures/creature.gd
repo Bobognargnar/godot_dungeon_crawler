@@ -46,5 +46,9 @@ func _process(delta: float) -> void:
 		$AnimatedSprite2D.flip_v = false
 		# See the note below about the following boolean assignment.
 		$AnimatedSprite2D.flip_h = velocity.x < 0
-	
+		$Weapon.flip_v = velocity.x < 0
+		if $Weapon.flip_v:
+			$Weapon.position = Vector2(-abs($Weapon.position.x), $Weapon.position.y)
+		else:
+			$Weapon.position = Vector2(abs($Weapon.position.x), $Weapon.position.y)
 	move_and_slide()
