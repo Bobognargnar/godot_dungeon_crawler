@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://43xt41sobvk2"]
-
-[ext_resource type="Script" path="res://creatures/roamingCreatures/roaming_creature.gd" id="1_mi1h1"]
-
-[node name="RoamingCreature" type="CharacterBody2D"]
-script = ExtResource("1_mi1h1")
