@@ -14,6 +14,12 @@ var screen_size # Size of the game window.
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# TODO manage dynamic equipment with creature names
+	if "_sword" in name:
+		var sword_texture = preload("res://.godot/imported/weapon_red_gem_sword.png-ad2e5ed9db3deebf97cd818cb7209a7c.ctex")
+		weapon.rotation=30.5
+		weapon.position=Vector2(-10, 10)
+		equip_weapon(sword_texture)
 	pass
 
 # Manage creature movement. Default creature doesn't move!

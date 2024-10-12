@@ -1,6 +1,7 @@
 extends Creature
 
 func _ready() -> void:
+	super()
 	hide()
 
 # Manage creature movement. Default creature doesn't move!
