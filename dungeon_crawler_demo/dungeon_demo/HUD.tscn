@@ -3,9 +3,17 @@
 [ext_resource type="Script" path="res://hud.gd" id="1_lgjky"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dg7ds"]
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aos63"]
 bg_color = Color(0.979658, 0.349311, 0.430485, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_lgjky")

@@ -10,20 +10,18 @@ signal hit # Signals when the creature is being hit
 
 @export var hitpoints = 1
 
+var is_attacking = false
+
 var current_hp = 5
 var screen_size # Size of the game window.
 
-@onready var weapon = $Weapon # Reference to the Weapon node
+#@onready var weapon = $Weapon # Reference to the Weapon node
 
+var start_attack_time = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# TODO manage dynamic equipment with creature names
-	if "_sword" in name:
-		var sword_texture = preload("res://.godot/imported/weapon_red_gem_sword.png-ad2e5ed9db3deebf97cd818cb7209a7c.ctex")
-		weapon.rotation=-30.5
-		weapon.position=Vector2(-5, 5)
-		equip_weapon(sword_texture)
 	pass
 
 # Manage creature movement. Default creature doesn't move!
@@ -64,6 +62,17 @@ func _process(delta: float) -> void:
 			_turn_right()
 		
 	move_and_slide()
+	
+	"""
+	if tmp_tween and tmp_tween.is_running() and action=="ATTACK":
+		tmp_tween.tween_property($Weapon, "position", Vector2(0,0), 1.0)
+		action = "RETURN"
+	if tmp_tween and tmp_tween.is_running() and action=="RETURN":
+		is_attacking = false
+		action = "IDLE"	
+	"""
+		
+	
 
 func _turn_left():
 	"""Creature facing left """
@@ -78,9 +87,17 @@ func _turn_right():
 	$Weapon.position = Vector2(-$Weapon.position.x, $Weapon.position.y)
 
 # Method to equip a weapon
-func equip_weapon(texture: Texture) -> void:
-	weapon.texture = texture
-	weapon.visible = true
+func equip_weapon(weapon) -> void:
+	print("Equip Weapons!")
+	var new_weapon = weapon.duplicate()
+	new_weapon.position = Vector2(0,0)
+	new_weapon.get_node("Sprite").scale = Vector2(1,1)
+	$Weapon.call_deferred("add_child",new_weapon)
+
+func attack_weapon() -> void:
+	
+	start_attack_time = Time.get_ticks_msec()
+	pass
 
 func take_damage(dam: int) -> void:
 	print("%s toook %s damage" % [name,dam])

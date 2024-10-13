@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bej7ojktqrm1p"]
+
+[ext_resource type="Script" path="res://items/loot.gd" id="1_w636u"]
+[ext_resource type="Texture2D" uid="uid://8pnxsy7lw5kt" path="res://assets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7/frames/weapon_red_gem_sword.png" id="2_o334v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywb4j"]
+size = Vector2(5, 5)
+
+[node name="Loot" type="Area2D"]
+script = ExtResource("1_w636u")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_o334v")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_ywb4j")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
