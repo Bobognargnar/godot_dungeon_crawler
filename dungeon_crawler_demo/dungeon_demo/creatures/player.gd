@@ -1,5 +1,7 @@
 extends Creature
 
+signal player_hit(dam: float)
+
 func _ready() -> void:
 	super()
 	hide()
@@ -21,3 +23,6 @@ func _move(delta: float) -> Vector2:
 func start(pos):
 	position = pos
 	show()
+
+func take_damage(dam: int) -> void:
+	player_hit.emit(1.0*dam/hitpoints)

@@ -2,11 +2,15 @@ extends CharacterBody2D
 
 class_name Creature
 
-signal hit # Signals when the player is being hit
+signal hit # Signals when the creature is being hit
 
-@export var speed = 400 # How fast the player will move (pixels/sec).
-@export var acc = 1000 # How fast the player will move (pixels/sec).
+@export var speed = 400
+@export var acc = 1000
 @export var brake = 2000
+
+@export var hitpoints = 1
+
+var current_hp = 5
 var screen_size # Size of the game window.
 
 @onready var weapon = $Weapon # Reference to the Weapon node
@@ -17,8 +21,8 @@ func _ready() -> void:
 	# TODO manage dynamic equipment with creature names
 	if "_sword" in name:
 		var sword_texture = preload("res://.godot/imported/weapon_red_gem_sword.png-ad2e5ed9db3deebf97cd818cb7209a7c.ctex")
-		weapon.rotation=30.5
-		weapon.position=Vector2(-10, 10)
+		weapon.rotation=-30.5
+		weapon.position=Vector2(-5, 5)
 		equip_weapon(sword_texture)
 	pass
 
@@ -77,3 +81,6 @@ func _turn_right():
 func equip_weapon(texture: Texture) -> void:
 	weapon.texture = texture
 	weapon.visible = true
+
+func take_damage(dam: int) -> void:
+	print("%s toook %s damage" % [name,dam])

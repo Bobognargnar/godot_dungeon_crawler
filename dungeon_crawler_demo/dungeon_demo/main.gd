@@ -10,11 +10,16 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+func manage_player_health(dam_perc: float) -> void:
+	var hp_left = $Hud.update_health_bar(dam_perc)
+	if hp_left <= 0:
+		game_over()
+	pass
 
 func game_over() -> void:
 	$Hud.show_game_over()
-	$ScoreTimer.stop()
-
+	$Player.hide()
+	
 func new_game():
 	$Player.start($StartPosition.position)
 	$StartTimer.start()

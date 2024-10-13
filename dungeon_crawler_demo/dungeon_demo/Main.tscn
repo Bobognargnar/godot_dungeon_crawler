@@ -24,3 +24,4 @@ position = Vector2(134, 466)
 
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="start_game" from="Hud" to="." method="new_game"]
+[connection signal="player_hit" from="Player" to="." method="manage_player_health"]

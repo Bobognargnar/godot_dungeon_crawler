@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfusyevm4770"]
+[gd_scene load_steps=9 format=3 uid="uid://dfusyevm4770"]
 
 [ext_resource type="Script" path="res://creatures/roamingCreatures/skeleton.gd" id="1_1xsa4"]
 [ext_resource type="Texture2D" uid="uid://ddilyd701vqg" path="res://assets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7/frames/skelet_idle_anim_f0.png" id="2_stcsx"]
@@ -29,9 +29,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_54f0s"]
 size = Vector2(6.92308, 12.4435)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_brgi3"]
+size = Vector2(20, 30)
+
 [node name="Skeleton" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_1xsa4")
+damage = 8
 max_move_time = 1.0
 speed = 100
 acc = 100
@@ -47,3 +51,11 @@ scale = Vector2(2.6, 2.21)
 shape = SubResource("RectangleShape2D_54f0s")
 
 [node name="Weapon" type="Sprite2D" parent="."]
+
+[node name="DamageArea" type="Area2D" parent="."]
+
+[node name="DamageZone" type="CollisionShape2D" parent="DamageArea"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_brgi3")
+
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]

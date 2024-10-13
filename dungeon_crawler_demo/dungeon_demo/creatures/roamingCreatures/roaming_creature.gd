@@ -14,7 +14,8 @@ var direction = Vector2.ZERO
 
 func _ready() -> void:
 	super()
-	_set_new_direction()
+	direction = Vector2(1,1).normalized()
+	#_set_new_direction()
 
 var rng = RandomNumberGenerator.new()
 
