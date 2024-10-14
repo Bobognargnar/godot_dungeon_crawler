@@ -8,16 +8,16 @@ signal hit # Signals when the creature is being hit
 @export var acc = 1000
 @export var brake = 2000
 
-@export var hitpoints = 1
+@export var hitpoints = 20
 
 var is_attacking = false
 var facing_direction = 'right'
-var current_hp = 5
 var screen_size # Size of the game window.
 
 #@onready var weapon = $Weapon # Reference to the Weapon node
 
 var start_attack_time = 0
+var is_knockback = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -30,6 +30,8 @@ func _move(delta: float) -> Vector2:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if is_knockback: return
+	
 	var delta_v = _move(delta)
 
 	if delta_v.length() > 0:
@@ -102,4 +104,16 @@ func attack_weapon() -> void:
 	pass
 
 func take_damage(dam: int) -> void:
-	print("%s toook %s damage" % [name,dam])
+	var dam_perc = 1.0*dam/hitpoints
+	#print($HealthBar)
+	$HealthBar.value -= dam_perc
+	if $HealthBar.value <= 0:
+		queue_free()
+
+func knockback(enemy: Node2D, strength: float) -> void:
+	is_knockback = true
+	var knockback_direction = (enemy.global_position - global_position).normalized()
+	velocity = knockback_direction * strength * -1
+	print(velocity)
+	move_and_slide()
+	is_knockback = false

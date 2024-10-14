@@ -69,7 +69,7 @@ shape = SubResource("RectangleShape2D_54f0s")
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_brgi3")
 
-[node name="CreatureHealthBar" type="ProgressBar" parent="."]
+[node name="HealthBar" type="ProgressBar" parent="."]
 offset_left = -16.0
 offset_top = -22.0
 offset_right = 16.0

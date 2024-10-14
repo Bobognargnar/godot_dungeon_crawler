@@ -23,14 +23,18 @@ var return_movement = {
 @export var wait_time = 0.3
 @export var return_time = 0.1
 
+var hit_enemies = {}
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$Hitbox.disabled = true
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if current_state == state.ATTACK and not lock_state:
 		lock_state = true
+		$Hitbox.disabled = false
 		current_tween = create_tween()
 		
 		current_tween.tween_property(self, "rotation", attack_movement[attack_direction]['rotation'], attack_time)
@@ -45,6 +49,8 @@ func _process(delta: float) -> void:
 		await current_tween.finished
 		current_state = state.IDLE
 		lock_state = false
+		hit_enemies = {}
+		$Hitbox.disabled = true
 		
 	pass
 
@@ -54,3 +60,15 @@ func start_attack(direction) -> void:
 		print("Set attack")
 		current_state = state.ATTACK
 	return
+
+func creature_hit(body: Node2D) -> void:
+	# Prevent hitting yourself
+	if body is Creature and body not in hit_enemies and self.get_parent().get_parent() != body:
+		hit_enemies[body] = true
+		
+		print(hit_enemies)
+		print(body in hit_enemies)
+		
+		print("Hit " + body.name)
+		body.take_damage(damage)
+		body.knockback(self.get_parent().get_parent(),400)
