@@ -11,7 +11,7 @@ signal hit # Signals when the creature is being hit
 @export var hitpoints = 20
 
 var is_attacking = false
-var facing_direction = 'right'
+var facing_direction = 4
 var screen_size # Size of the game window.
 
 #@onready var weapon = $Weapon # Reference to the Weapon node
@@ -78,14 +78,14 @@ func _process(delta: float) -> void:
 
 func _turn_left():
 	"""Creature facing left """
-	facing_direction = 'left'
+	facing_direction = 3
 	$AnimatedSprite2D.flip_h = true
 	$Weapon.rotation = abs($Weapon.rotation)
 	$Weapon.position = Vector2(-$Weapon.position.x, $Weapon.position.y)
 	
 func _turn_right():
 	"""Creature facing right """
-	facing_direction = 'right'
+	facing_direction = 4
 	$AnimatedSprite2D.flip_h = false
 	$Weapon.rotation = -abs($Weapon.rotation)
 	$Weapon.position = Vector2(-$Weapon.position.x, $Weapon.position.y)

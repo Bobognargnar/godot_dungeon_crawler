@@ -9,14 +9,27 @@ var lock_state = false
 var current_state = state.IDLE
 var current_tween: Tween = Tween.new()
 
+enum dir_mappings {UPLEFT,UP,UPRIGHT,LEFT,RIGHT,DOWNLEFT,DOWN,DOWNRIGHT,UP_FROMLEFT,DOWN_FROMLEFT}
 var attack_direction = 'right'
 var attack_movement = {
-	'right': {'rotation':1.8,'position':Vector2(20,20)},
-	'left': {'rotation':-1.8,'position':Vector2(-20,20)}
+	dir_mappings.RIGHT: {'rotation':1.8,'position':Vector2(20,20)},
+	dir_mappings.LEFT: {'rotation':-1.8,'position':Vector2(-20,20)},
+	
+	# These work if facing right
+	dir_mappings.UP: {'rotation':0.8,'position':Vector2(20,-10)},
+	dir_mappings.DOWN: {'rotation':3.6,'position':Vector2(0,30)},
+	# These work if facing left
+	dir_mappings.UP_FROMLEFT: {'rotation':0.8,'position':Vector2(20,-10)},
+	dir_mappings.DOWN_FROMLEFT: {'rotation':3.6,'position':Vector2(0,30)},
+	
+	
+	dir_mappings.UPLEFT: {'rotation':1.4,'position':Vector2(20,-10)},
+	dir_mappings.UPRIGHT: {'rotation':-1.4,'position':Vector2(20,-10)},
+	dir_mappings.DOWNLEFT: {'rotation':1.5,'position':Vector2(0,20)},
+	dir_mappings.DOWNRIGHT: {'rotation':1.5,'position':Vector2(0,20)},
 	}
 var return_movement = {
-	'right': {'rotation':0,'position':Vector2(0,0)},
-	'left': {'rotation':0,'position':Vector2(0,0)}
+	dir_mappings.RIGHT: {'rotation':0,'position':Vector2(0,0)}
 	}
 
 @export var attack_time = 0.1
@@ -44,8 +57,8 @@ func _process(delta: float) -> void:
 
 		self.get_parent().get_parent().can_move = true
 		current_tween = create_tween()
-		current_tween.tween_property(self, "rotation", return_movement[attack_direction]['rotation'], return_time)
-		current_tween.parallel().tween_property(self, "position", return_movement[attack_direction]['position'], return_time)
+		current_tween.tween_property(self, "rotation", return_movement[dir_mappings.RIGHT]['rotation'], return_time)
+		current_tween.parallel().tween_property(self, "position", return_movement[dir_mappings.RIGHT]['position'], return_time)
 		await current_tween.finished
 		current_state = state.IDLE
 		lock_state = false
@@ -57,7 +70,7 @@ func _process(delta: float) -> void:
 func start_attack(direction) -> void:
 	if current_state == state.IDLE:
 		attack_direction = direction
-		print("Set attack")
+		print("Set attack!!" + str(direction))
 		current_state = state.ATTACK
 	return
 
