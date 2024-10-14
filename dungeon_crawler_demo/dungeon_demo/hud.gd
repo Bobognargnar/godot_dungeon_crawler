@@ -16,6 +16,7 @@ func show_game_over():
 	
 	healt_bar_active = false
 	$HealthBar.value = 1.0
+	$StaminaBar.value = 1.0
 	$Message.text = "Smite the Undead!"
 	$Message.show()
 	# Make a one-shot timer and wait for it to finish.
@@ -25,6 +26,7 @@ func show_game_over():
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$HealthBar.hide()
+	$StaminaBar.hide()
 	pass # Replace with function body.
 
 
@@ -36,12 +38,17 @@ func _process(delta: float) -> void:
 func _on_start_button_pressed() -> void:
 	$StartButton.hide()
 	$HealthBar.show()
+	$StaminaBar.show()
 	healt_bar_active = true
 	start_game.emit()
 
 
 func _on_message_timer_timeout() -> void:
 	$Message.hide()
+
+func update_stamina_bar(delta_stamina: float) -> void:
+	if healt_bar_active:
+		$StaminaBar.value += delta_stamina
 
 func update_health_bar(dam_perc: float) -> float:
 	if healt_bar_active:

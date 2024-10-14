@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://kbryvmo0ma51"]
+[gd_scene load_steps=5 format=3 uid="uid://kbryvmo0ma51"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_lgjky"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dg7ds"]
+bg_color = Color(0.230315, 0.230315, 0.230315, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -10,6 +11,13 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aos63"]
 bg_color = Color(0.979658, 0.349311, 0.430485, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1ye2"]
+bg_color = Color(0, 0.294118, 0.854902, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -59,9 +67,20 @@ autowrap_mode = 2
 offset_left = 12.0
 offset_top = 575.0
 offset_right = 215.0
-offset_bottom = 587.0
+offset_bottom = 583.0
 theme_override_styles/background = SubResource("StyleBoxFlat_dg7ds")
 theme_override_styles/fill = SubResource("StyleBoxFlat_aos63")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="StaminaBar" type="ProgressBar" parent="."]
+offset_left = 12.0
+offset_top = 586.0
+offset_right = 215.0
+offset_bottom = 591.0
+theme_override_styles/background = SubResource("StyleBoxFlat_dg7ds")
+theme_override_styles/fill = SubResource("StyleBoxFlat_e1ye2")
 max_value = 1.0
 value = 1.0
 show_percentage = false

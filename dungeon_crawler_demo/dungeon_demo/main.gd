@@ -24,4 +24,7 @@ func new_game():
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$Hud.show_message("Get Ready")
-	
+
+
+func _on_player_stamina_change(stam: float) -> void:
+	$Hud.update_stamina_bar(stam)

@@ -9,12 +9,19 @@ signal hit # Signals when the creature is being hit
 @export var brake = 2000
 
 @export var hitpoints = 20
+@export var immovable = false
 
 var is_attacking = false
-var facing_direction = 4
-var screen_size # Size of the game window.
+""""
+attack_directions
+0 1 2
+3 + 4
+5 6 7
+"""
+enum attack_direction {UPLEFT,UP,UPRIGHT,LEFT,RIGHT,DOWNLEFT,DOWN,DOWNRIGHT,UP_FROMLEFT,DOWN_FROMLEFT}
+var facing_direction = attack_direction.RIGHT
 
-#@onready var weapon = $Weapon # Reference to the Weapon node
+var screen_size # Size of the game window.
 
 var start_attack_time = 0
 var is_knockback = false
@@ -78,14 +85,14 @@ func _process(delta: float) -> void:
 
 func _turn_left():
 	"""Creature facing left """
-	facing_direction = 3
+	facing_direction = attack_direction.LEFT
 	$AnimatedSprite2D.flip_h = true
 	$Weapon.rotation = abs($Weapon.rotation)
 	$Weapon.position = Vector2(-$Weapon.position.x, $Weapon.position.y)
 	
 func _turn_right():
 	"""Creature facing right """
-	facing_direction = 4
+	facing_direction = attack_direction.RIGHT
 	$AnimatedSprite2D.flip_h = false
 	$Weapon.rotation = -abs($Weapon.rotation)
 	$Weapon.position = Vector2(-$Weapon.position.x, $Weapon.position.y)
