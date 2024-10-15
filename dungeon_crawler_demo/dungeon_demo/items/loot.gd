@@ -15,5 +15,9 @@ func _on_body_entered(body: Node2D) -> void:
 	""" Remove object and equip item """
 	if body.name == 'Player': # Only player can pickup weapons
 		var loot_type = loot_item.instantiate()
-		body.equip_weapon(loot_type)
+		if "damage" in loot_type:
+			body.equip_weapon(loot_type)
+		if "modifier" in loot_type:
+			loot_type.apply_effect(body)
+			loot_type.queue_free()
 		queue_free()

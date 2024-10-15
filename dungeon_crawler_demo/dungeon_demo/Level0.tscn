@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://bviev7dgmq5hc" path="res://assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="1_6l5uw"]
 [ext_resource type="PackedScene" uid="uid://dfusyevm4770" path="res://creatures/roamingCreatures/Skeleton.tscn" id="2_h0acq"]
-[ext_resource type="PackedScene" uid="uid://sjrk1x0uta24" path="res://items/weapons/GenericWeapon.tscn" id="3_4la3h"]
 [ext_resource type="PackedScene" uid="uid://bej7ojktqrm1p" path="res://items/Loot.tscn" id="4_h4jq2"]
+[ext_resource type="PackedScene" uid="uid://djrvn8xodb08c" path="res://items/powerups/Food.tscn" id="5_8xvac"]
 [ext_resource type="PackedScene" uid="uid://dd1bgsnxjoouj" path="res://items/weapons/Sword.tscn" id="5_bsnld"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qu5jj"]
@@ -158,12 +158,13 @@ position = Vector2(-16.5, -70.5)
 [node name="Skeleton3" parent="." instance=ExtResource("2_h0acq")]
 position = Vector2(-191.5, -103)
 
-[node name="Loot" parent="." instance=ExtResource("4_h4jq2")]
-position = Vector2(-1, 62)
-loot_item = ExtResource("3_4la3h")
-metadata/_edit_group_ = true
-
-[node name="Loot2" parent="." instance=ExtResource("4_h4jq2")]
+[node name="sword" parent="." instance=ExtResource("4_h4jq2")]
 position = Vector2(-103, 72.5)
 loot_item = ExtResource("5_bsnld")
+metadata/_edit_group_ = true
+
+[node name="beer" parent="." instance=ExtResource("4_h4jq2")]
+position = Vector2(-190.5, -41)
+scale = Vector2(0.5, 0.5)
+loot_item = ExtResource("5_8xvac")
 metadata/_edit_group_ = true
