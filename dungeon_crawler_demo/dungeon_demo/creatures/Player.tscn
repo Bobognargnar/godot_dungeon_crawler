@@ -46,3 +46,5 @@ shape = SubResource("RectangleShape2D_a43al")
 [node name="Weapon" type="Node2D" parent="."]
 position = Vector2(-10, 5)
 rotation = -0.532325
+
+[node name="Camera2D" type="Camera2D" parent="."]

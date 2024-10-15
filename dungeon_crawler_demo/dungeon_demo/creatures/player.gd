@@ -21,14 +21,14 @@ var last_attack_dir = facing_direction
 var stamina_timeout_s = 0
 
 func _consume_stamina(cost:int):
-	print("Consuming stamina " + str(cost) + " of " + str(stamina))
+	#print("Consuming stamina " + str(cost) + " of " + str(stamina))
 	if stamina >= cost:
 		stamina -= cost
 	else:
 		stamina = 0
 
 func _gain_stamina(reg:float):
-	print("Gain stamina " + str(reg) + " plus " + str(stamina))
+	#print("Gain stamina " + str(reg) + " plus " + str(stamina))
 	stamina += reg
 	if stamina >= max_stamina:
 		stamina = max_stamina

@@ -19,11 +19,11 @@ func _move(delta: float) -> Vector2:
 	if target:
 		var player_position = $RayCast2D.to_local(target.global_position)
 		$RayCast2D.set_target_position(player_position)
-		if $RayCast2D.is_colliding() and $RayCast2D.get_collider().name=='Player':
+		if $RayCast2D.is_colliding() and $RayCast2D.get_collider() and $RayCast2D.get_collider().name=='Player':
 			#print(name + " has LOS with Player")
 			goto_target = attention_span
 			last_position = $RayCast2D.target_position
-			print(last_position)
+			#print(last_position)
 		else:
 			goto_target -= delta
 			if goto_target < 0: goto_target = 0
