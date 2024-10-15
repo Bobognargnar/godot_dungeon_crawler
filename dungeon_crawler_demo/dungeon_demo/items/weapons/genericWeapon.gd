@@ -1,9 +1,11 @@
 extends Area2D
 
-@export var damage = 10
-@export var durability = 10
-@export var sprite = preload("res://assets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7/frames/weapon_red_gem_sword.png")
-@export var stamina_cost = 2
+class_name GenericWeapon
+
+@export var damage = 1
+@export var durability = 1
+@export var sprite = ""
+@export var stamina_cost = 1
 
 enum state {ATTACK,WAIT,IDLE,RETURN}
 var lock_state = false

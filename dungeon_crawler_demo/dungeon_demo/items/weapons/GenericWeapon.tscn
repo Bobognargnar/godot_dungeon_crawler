@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://sjrk1x0uta24"]
+[gd_scene load_steps=3 format=3 uid="uid://sjrk1x0uta24"]
 
-[ext_resource type="Script" path="res://items/genericWeapon.gd" id="1_toiwn"]
-[ext_resource type="Texture2D" uid="uid://8pnxsy7lw5kt" path="res://assets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7/frames/weapon_red_gem_sword.png" id="2_hq6ef"]
+[ext_resource type="Script" path="res://items/weapons/genericWeapon.gd" id="1_toiwn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wqut"]
 size = Vector2(5, 17)
@@ -11,7 +10,6 @@ script = ExtResource("1_toiwn")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_hq6ef")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3.5)

@@ -84,9 +84,5 @@ show_percentage = false
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(42, 0)
-collide_with_areas = true
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
-[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_velocity_computed"]

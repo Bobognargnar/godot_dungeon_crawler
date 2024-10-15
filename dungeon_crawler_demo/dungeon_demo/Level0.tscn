@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://bd5qyuaqvyyyw"]
+[gd_scene load_steps=8 format=4 uid="uid://bd5qyuaqvyyyw"]
 
 [ext_resource type="Texture2D" uid="uid://bviev7dgmq5hc" path="res://assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="1_6l5uw"]
 [ext_resource type="PackedScene" uid="uid://dfusyevm4770" path="res://creatures/roamingCreatures/Skeleton.tscn" id="2_h0acq"]
-[ext_resource type="PackedScene" uid="uid://sjrk1x0uta24" path="res://items/GenericWeapon.tscn" id="3_4la3h"]
+[ext_resource type="PackedScene" uid="uid://sjrk1x0uta24" path="res://items/weapons/GenericWeapon.tscn" id="3_4la3h"]
 [ext_resource type="PackedScene" uid="uid://bej7ojktqrm1p" path="res://items/Loot.tscn" id="4_h4jq2"]
+[ext_resource type="PackedScene" uid="uid://dd1bgsnxjoouj" path="res://items/weapons/Sword.tscn" id="5_bsnld"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qu5jj"]
 texture = ExtResource("1_6l5uw")
@@ -158,6 +159,11 @@ position = Vector2(-16.5, -70.5)
 position = Vector2(-191.5, -103)
 
 [node name="Loot" parent="." instance=ExtResource("4_h4jq2")]
-position = Vector2(-104.5, 88.5)
+position = Vector2(-1, 62)
 loot_item = ExtResource("3_4la3h")
+metadata/_edit_group_ = true
+
+[node name="Loot2" parent="." instance=ExtResource("4_h4jq2")]
+position = Vector2(-103, 72.5)
+loot_item = ExtResource("5_bsnld")
 metadata/_edit_group_ = true
