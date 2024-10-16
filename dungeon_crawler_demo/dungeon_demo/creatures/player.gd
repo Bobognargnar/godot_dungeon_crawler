@@ -10,6 +10,7 @@ var stamina = 10
 var stamina_regen = 0.1
 
 var can_move = true
+var is_disabled = true
 
 func _ready() -> void:
 	super()
@@ -64,7 +65,24 @@ func _process(delta: float) -> void:
 	# Handle stamina regeneration
 	# If stamina recovery timer is expired, recover stamina
 	# change_stamina.emit()
-	
+
+func disable_player() -> void:
+	hide()
+	set_collision_mask_value(1,false)
+	set_collision_layer_value(1,false)
+	$CollisionShape2D.disabled = true
+	immovable = true
+	is_disabled = true
+	can_move = false
+
+func enable_player() -> void:
+	show()
+	take_damage(-hitpoints)
+	set_collision_mask_value(1,true)
+	set_collision_layer_value(1,true)
+	immovable = false
+	is_disabled = false
+	can_move = true
 
 # Manage creature movement. Default creature doesn't move!
 func _move(delta: float) -> Vector2:

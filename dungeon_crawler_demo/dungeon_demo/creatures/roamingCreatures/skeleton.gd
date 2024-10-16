@@ -16,7 +16,7 @@ func _ready() -> void:
 func _move(delta: float) -> Vector2:
 	var direction = super(delta)
 	
-	if target:
+	if target and "global_position" in target:
 		var player_position = $RayCast2D.to_local(target.global_position)
 		$RayCast2D.set_target_position(player_position)
 		if $RayCast2D.is_colliding() and $RayCast2D.get_collider() and $RayCast2D.get_collider().name=='Player':
@@ -44,7 +44,7 @@ func _aggressive_status(status: bool) -> void:
 		
 
 func _on_damage_area_body_entered(body: Node2D) -> void:
-	if body.name == 'Player':
+	if body.name == 'Player' and not body.is_disabled:
 		body.take_damage(damage)
 		body.knockback(self,400)
 	#$CollisionShape2D.set_deferred("disabled", true)

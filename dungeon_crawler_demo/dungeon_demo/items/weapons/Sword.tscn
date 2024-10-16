@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://8pnxsy7lw5kt" path="res://assets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7/frames/weapon_red_gem_sword.png" id="2_fsrtj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wqut"]
-size = Vector2(5, 17)
+size = Vector2(5, 24)
 
 [node name="Sword" type="Area2D"]
 script = ExtResource("1_mjvnv")
@@ -14,7 +14,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_fsrtj")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3.5)
+position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_5wqut")
 
 [connection signal="body_entered" from="." to="." method="creature_hit"]

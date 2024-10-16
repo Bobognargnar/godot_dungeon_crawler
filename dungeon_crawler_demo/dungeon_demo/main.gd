@@ -2,6 +2,8 @@ extends Node
 
 var score
 
+var player_scene = preload("res://creatures/Player.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var creatures = []
@@ -32,12 +34,15 @@ func manage_player_health(dam_perc: float) -> void:
 
 func game_over() -> void:
 	$Hud.show_game_over()
-	$Player.hide()
+	#$Player.hide()
+	$Player.disable_player()
 	
+# Called by clicking on START button in HUD
 func new_game():
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$Hud.show_message("Get Ready")
+	$Player.enable_player()
 
 
 func _on_player_stamina_change(stam: float) -> void:
