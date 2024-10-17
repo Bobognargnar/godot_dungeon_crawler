@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://d11haosmk0bdm"]
 
-[ext_resource type="Script" path="res://environment/door.gd" id="1_2oouh"]
+[ext_resource type="Script" path="res://environment/doors/door.gd" id="1_2oouh"]
 [ext_resource type="Texture2D" uid="uid://bviev7dgmq5hc" path="res://assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="2_mjxi5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b3dmn"]

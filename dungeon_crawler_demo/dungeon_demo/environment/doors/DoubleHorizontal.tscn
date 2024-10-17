@@ -1,34 +1,42 @@
 [gd_scene load_steps=5 format=3 uid="uid://cddd555118grx"]
 
-[ext_resource type="Script" path="res://environment/door.gd" id="1_2yv1r"]
+[ext_resource type="Script" path="res://environment/doors/doublehorizontal.gd" id="1_268m7"]
 [ext_resource type="Texture2D" uid="uid://bviev7dgmq5hc" path="res://assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="2_iyq2c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b3dmn"]
-size = Vector2(30, 7)
+size = Vector2(32, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rm0as"]
 size = Vector2(30, 11)
 
 [node name="Door" type="StaticBody2D"]
-script = ExtResource("1_2yv1r")
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_268m7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(88, 89)
+position = Vector2(0, -16)
 texture = ExtResource("2_iyq2c")
 centered = false
-offset = Vector2(-96.57, -96)
 region_enabled = true
-region_rect = Rect2(96.35, 96.0633, 31.3133, 15.5366)
+region_rect = Rect2(96, 96, 32, 16)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(7, -3.5)
+[node name="DoorCollisionRegion" type="CollisionShape2D" parent="."]
+position = Vector2(16, -12)
 shape = SubResource("RectangleShape2D_b3dmn")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(7, -3.5)
+[node name="DoorOpeningRegion" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(16, -12)
 shape = SubResource("RectangleShape2D_rm0as")
+
+[node name="ClosingTimeout" type="Timer" parent="."]
+wait_time = 1.5
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="ClosingTimeout" to="." method="_on_closing_timeout_timeout"]

@@ -47,6 +47,7 @@ func _on_start_button_pressed() -> void:
 
 func _on_message_timer_timeout() -> void:
 	$Message.hide()
+	get_parent().lets_go()
 
 func update_stamina_bar(delta_stamina: float) -> void:
 	if healt_bar_active:
