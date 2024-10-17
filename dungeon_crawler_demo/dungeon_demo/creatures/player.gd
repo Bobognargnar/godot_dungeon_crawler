@@ -9,7 +9,7 @@ var max_stamina = 10
 var stamina = 10
 var stamina_regen = 0.1
 
-var can_move = true
+var can_move = false
 var is_disabled = true
 
 func _ready() -> void:

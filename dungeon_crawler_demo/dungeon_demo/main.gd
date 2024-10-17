@@ -4,13 +4,23 @@ var score
 
 var player_scene = preload("res://creatures/Player.tscn")
 
+
+""" Collision layer convention:
+	layer - where I am
+	mask - what I see
+	
+	layer 1 - physical movement on the ground
+	layer 2 - line of sight
+	layer 3 - presence sensor | things that sense the presence of the player
+	
+	"""
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var creatures = []
 	findByClass(self, "CharacterBody2D", creatures)
 	for creature in creatures:
 		if creature.name != "Player":
-			print(creature.name)
 			creature.target = $Player
 	pass
 
@@ -42,6 +52,8 @@ func new_game():
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$Hud.show_message("Get Ready")
+	
+func lets_go() -> void:
 	$Player.enable_player()
 
 

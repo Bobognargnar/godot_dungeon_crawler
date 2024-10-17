@@ -30,6 +30,8 @@ animations = [{
 size = Vector2(9.23077, 13.1222)
 
 [node name="Player2" type="CharacterBody2D"]
+collision_layer = 7
+collision_mask = 7
 script = ExtResource("1_ij4ka")
 hitpoints = 10
 
