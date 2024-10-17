@@ -83,3 +83,14 @@ func update_health_bar(dam_perc: float) -> float:
 			$HealthBar.value = real_health
 		
 	return real_health
+
+func add_to_inventory(item: Node2D) -> void:
+	var inv_slots = [1,2,3,4]
+	for slot in inv_slots:
+		var slot_node = get_node("InventoryItem"+str(slot))
+		if slot_node and slot_node.get_child_count()==0:
+			print("HUD: adding item to inventory: " + item.name + " slot " + str(slot))
+			slot_node.add_child(item)
+			break
+	
+	pass

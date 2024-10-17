@@ -41,6 +41,10 @@ var return_movement = {
 
 var hit_enemies = {}
 
+# Weapon effect is being equipped!
+func apply_effect(player: Node2D) -> void:
+	player.equip_weapon(self)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Hitbox.disabled = true

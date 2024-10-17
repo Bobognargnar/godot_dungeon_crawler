@@ -3,6 +3,9 @@ extends Creature
 # Percentage of HP lost
 signal player_hit(dam: float)
 
+signal move_to_inventory_hud(item: Node2D)
+signal remove_from_inventory_hud(item: Node2D)
+
 # Percentage of STAMINA changed
 signal stamina_change(stam: float)
 var max_stamina = 10
@@ -151,3 +154,10 @@ func start(pos):
 
 func take_damage(dam: int) -> void:
 	player_hit.emit(1.0*dam/hitpoints)
+
+func move_to_inventory(item: Node2D) -> void:
+	print("Player: move to inventory " + item.name)
+	move_to_inventory_hud.emit(item)
+
+func remove_from_inventory(item: Node2D) -> void:
+	print("Player: remove from inventory" + item.name)

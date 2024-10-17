@@ -118,5 +118,20 @@ max_value = 1.0
 value = 1.0
 show_percentage = false
 
+[node name="InventoryItem1" type="Node2D" parent="."]
+position = Vector2(16, 568)
+
+[node name="InventoryItem2" type="Node2D" parent="."]
+position = Vector2(32, 568)
+
+[node name="InventoryItem3" type="Node2D" parent="."]
+position = Vector2(48, 568)
+
+[node name="InventoryItem4" type="Node2D" parent="."]
+position = Vector2(64, 568)
+
+[node name="InventoryItem5" type="Node2D" parent="."]
+position = Vector2(80, 568)
+
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

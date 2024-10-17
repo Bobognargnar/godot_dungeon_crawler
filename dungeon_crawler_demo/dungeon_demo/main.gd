@@ -60,3 +60,7 @@ func lets_go() -> void:
 
 func _on_player_stamina_change(stam: float) -> void:
 	$Hud.update_stamina_bar(stam)
+
+func _on_player_move_to_inventory_hud(item: Node2D) -> void:
+	print("Main: move to inventory " + item.name)
+	$Hud.add_to_inventory(item)

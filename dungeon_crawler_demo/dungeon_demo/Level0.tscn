@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://bd5qyuaqvyyyw"]
+[gd_scene load_steps=12 format=4 uid="uid://bd5qyuaqvyyyw"]
 
 [ext_resource type="Texture2D" uid="uid://bviev7dgmq5hc" path="res://assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="1_6l5uw"]
 [ext_resource type="PackedScene" uid="uid://dfusyevm4770" path="res://creatures/roamingCreatures/Skeleton.tscn" id="2_h0acq"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://djrvn8xodb08c" path="res://items/powerups/Food.tscn" id="5_8xvac"]
 [ext_resource type="PackedScene" uid="uid://dd1bgsnxjoouj" path="res://items/weapons/Sword.tscn" id="5_bsnld"]
 [ext_resource type="PackedScene" uid="uid://i5rfekr7jeij" path="res://environment/doors/DoubleVertical.tscn" id="7_jgpba"]
+[ext_resource type="PackedScene" uid="uid://btby7qavr6tg6" path="res://items/powerups/HealthPotion.tscn" id="8_b0ewp"]
+[ext_resource type="PackedScene" uid="uid://ddxiwunus21hi" path="res://items/powerups/DamagePotion.tscn" id="9_yqlva"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qu5jj"]
 texture = ExtResource("1_6l5uw")
@@ -198,7 +200,7 @@ position = Vector2(251, 7)
 position = Vector2(111, 67)
 
 [node name="sword" parent="." instance=ExtResource("4_h4jq2")]
-position = Vector2(-103, 72.5)
+position = Vector2(-112, 88)
 loot_item = ExtResource("5_bsnld")
 metadata/_edit_group_ = true
 
@@ -268,3 +270,15 @@ position = Vector2(-160, -112)
 [node name="DoorVertical2" parent="." instance=ExtResource("7_jgpba")]
 position = Vector2(16, -68)
 scale = Vector2(1.19701, 1.31171)
+
+[node name="HPotion" parent="." instance=ExtResource("4_h4jq2")]
+position = Vector2(-76, 88)
+loot_item = ExtResource("8_b0ewp")
+
+[node name="HPotion2" parent="." instance=ExtResource("4_h4jq2")]
+position = Vector2(-76, 76)
+loot_item = ExtResource("8_b0ewp")
+
+[node name="DPotion" parent="." instance=ExtResource("4_h4jq2")]
+position = Vector2(-76, 104)
+loot_item = ExtResource("9_yqlva")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bej7ojktqrm1p"]
 
 [ext_resource type="Script" path="res://items/loot.gd" id="1_w636u"]
-[ext_resource type="Texture2D" uid="uid://8pnxsy7lw5kt" path="res://assets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7/frames/weapon_red_gem_sword.png" id="2_o334v"]
+[ext_resource type="Texture2D" uid="uid://d20a20smejnuj" path="res://assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset_2.png" id="2_3qamg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ywb4j"]
 size = Vector2(5, 5)
@@ -11,7 +11,9 @@ script = ExtResource("1_w636u")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_o334v")
+texture = ExtResource("2_3qamg")
+region_enabled = true
+region_rect = Rect2(96, 128, 16, 16)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.5)
