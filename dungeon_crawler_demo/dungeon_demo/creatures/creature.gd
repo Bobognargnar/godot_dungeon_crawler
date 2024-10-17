@@ -99,7 +99,6 @@ func _turn_right():
 
 # Method to equip a weapon
 func equip_weapon(weapon) -> void:
-	print("Equip Weapons!")
 	var new_weapon = weapon.duplicate()
 	new_weapon.position = Vector2(0,0)
 	new_weapon.get_node("Sprite").scale = Vector2(1,1)

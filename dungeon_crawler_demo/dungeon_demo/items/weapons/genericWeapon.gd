@@ -75,10 +75,8 @@ func _process(delta: float) -> void:
 	pass
 
 func start_attack(direction) -> void:
-	print("Attempt attack")
 	if current_state == state.IDLE:
 		attack_direction = direction
-		print("Set attack!!" + str(direction))
 		current_state = state.ATTACK
 	return
 
@@ -86,7 +84,6 @@ func creature_hit(body: Node2D) -> void:
 	# Prevent hitting yourself
 	if self.get_parent().get_parent() != body:
 		if body is Creature and body not in hit_enemies:
-			print("Hit " + body.name)
 			hit_enemies[body] = true
 			body.take_damage(damage)
 			if not body.immovable:

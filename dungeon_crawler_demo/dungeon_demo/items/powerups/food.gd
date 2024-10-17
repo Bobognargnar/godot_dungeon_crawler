@@ -2,6 +2,7 @@ extends Area2D
 
 var modifier = true # flags this item as a modifier item
 
+""" Food is consumed immediately for instant health gain """
 @export var hp_gain = 10
 
 func apply_effect(player: Node2D) -> void:
