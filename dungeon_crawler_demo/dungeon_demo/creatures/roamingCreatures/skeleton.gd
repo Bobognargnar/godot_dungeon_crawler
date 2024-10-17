@@ -1,9 +1,9 @@
 extends RoamingCreature
 
-@export var damage = 5
-@onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
+#@onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
 
 var target = null
+@export var damage = 5
 
 var attention_span = 2
 var goto_target = 0
@@ -11,6 +11,7 @@ var last_position = Vector2.ZERO
 
 func _ready() -> void:
 	super()
+	_damage = damage # Override default creature damage with concrete creature damage.
 	$HealthBar.visible = false
 
 func _move(delta: float) -> Vector2:
@@ -44,6 +45,6 @@ func _aggressive_status(status: bool) -> void:
 
 func _on_damage_area_body_entered(body: Node2D) -> void:
 	if body.name == 'Player' and not body.is_disabled:
-		body.take_damage(damage)
+		body.take_damage(_damage)
 		body.knockback(self,400)
 	#$CollisionShape2D.set_deferred("disabled", true)

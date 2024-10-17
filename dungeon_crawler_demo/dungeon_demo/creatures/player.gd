@@ -15,14 +15,16 @@ var stamina_regen = 0.1
 var can_move = false
 var is_disabled = true
 
+
 func _ready() -> void:
 	super()
 	hide()
 
-
 var last_attack_dir = facing_direction
 
 var stamina_timeout_s = 0
+
+
 
 func _consume_stamina(cost:int):
 	#print("Consuming stamina " + str(cost) + " of " + str(stamina))
@@ -92,18 +94,6 @@ func _move(delta: float) -> Vector2:
 	var delta_v = Vector2.ZERO
 	
 	last_attack_dir = _get_attack_direction()
-	
-	# DEBUG STUFF
-	if false:
-		var msg = ''
-		if Input.is_action_pressed("attack"): msg += "attack "
-		if Input.is_action_pressed("move_left"): msg += "left "
-		if Input.is_action_pressed("move_right"): msg += "right "
-		if Input.is_action_pressed("move_up"): msg += "up "
-		if Input.is_action_pressed("move_down"): msg += "down "
-		if len(msg)>0: 
-			print(msg)
-			print(last_attack_dir)
 	
 	if can_move:
 		if Input.is_action_pressed("move_right"):

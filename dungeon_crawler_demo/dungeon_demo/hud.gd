@@ -40,14 +40,23 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	# When the player has lost health, the yellow bar starts decresing to reach the red bar.
-	var delta_bar = delta * yellow_bar_speed
+	
+	for s in [1,2,3,4,5]:
+		var slot = str(s)
+		if (Input.is_action_pressed("item_"+slot) and
+			get_node("InventoryItem"+slot).get_child_count()>0):
+			get_node("InventoryItem"+slot).get_child(0).use_item()
+		
+	
 	if $HealthBar.value < $HealthBarDelta.value:
+		var delta_bar = delta * yellow_bar_speed
 		delta_bar = max(delta_bar,$HealthBarDelta.step)
 		$HealthBarDelta.value -= delta_bar
 		$HealthBarDelta.value = max($HealthBarDelta.value,$HealthBar.value)
 			
 	# When player has gained health
 	if $HealthBar.value < real_health:
+		var delta_bar = delta * yellow_bar_speed
 		delta_bar = max(delta_bar,$HealthBar.step)
 		$HealthBar.value += delta_bar
 		$HealthBar.value = min($HealthBar.value,real_health)

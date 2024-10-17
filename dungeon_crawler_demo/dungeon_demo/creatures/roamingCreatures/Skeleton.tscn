@@ -48,7 +48,6 @@ corner_radius_bottom_left = 5
 [node name="Skeleton" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_1xsa4")
-damage = 8
 max_move_time = 1.0
 speed = 100
 acc = 100

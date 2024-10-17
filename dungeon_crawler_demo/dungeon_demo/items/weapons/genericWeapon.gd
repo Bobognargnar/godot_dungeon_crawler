@@ -42,6 +42,7 @@ var return_movement = {
 var hit_enemies = {}
 
 # Weapon effect is being equipped!
+# weapon damage is added to creature base damage when dealing harm
 func apply_effect(player: Node2D) -> void:
 	player.equip_weapon(self)
 
@@ -86,10 +87,11 @@ func start_attack(direction) -> void:
 
 func creature_hit(body: Node2D) -> void:
 	# Prevent hitting yourself
-	if self.get_parent().get_parent() != body:
+	var wielder = self.get_parent().get_parent()
+	if wielder != body:
 		if body is Creature and body not in hit_enemies:
 			hit_enemies[body] = true
-			body.take_damage(damage)
+			body.take_damage(damage + wielder._damage)
 			if not body.immovable:
 				body.knockback(self.get_parent().get_parent(),400)
 			durability -= 1

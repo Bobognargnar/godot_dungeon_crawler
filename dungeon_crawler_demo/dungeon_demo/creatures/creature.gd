@@ -8,6 +8,7 @@ signal hit # Signals when the creature is being hit
 @export var acc = 1000
 @export var brake = 2000
 
+var _damage = 0 # This is the real damage!!!
 @export var hitpoints = 20
 @export var immovable = false
 
@@ -25,6 +26,10 @@ var screen_size # Size of the game window.
 
 var start_attack_time = 0
 var is_knockback = false
+
+
+# Modifier timers
+var modifier_timers = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -72,6 +77,16 @@ func _process(delta: float) -> void:
 		
 	move_and_slide()
 	
+	# Update timer modifiers!
+	var updated_modifers = []
+	for modifier in modifier_timers:
+		modifier["duration"] -= delta
+		if modifier["duration"] <= 0:
+			apply_modifier(modifier["stat"],modifier["modifier"],0)
+		else:
+			updated_modifers.append(modifier)
+	modifier_timers = updated_modifers
+	
 	"""
 	if tmp_tween and tmp_tween.is_running() and action=="ATTACK":
 		tmp_tween.tween_property($Weapon, "position", Vector2(0,0), 1.0)
@@ -105,7 +120,6 @@ func equip_weapon(weapon) -> void:
 	$Weapon.call_deferred("add_child",new_weapon)
 
 func attack_weapon() -> void:
-	
 	start_attack_time = Time.get_ticks_msec()
 	pass
 
@@ -123,3 +137,14 @@ func knockback(enemy: Node2D, strength: float) -> void:
 	#print(velocity)
 	move_and_slide()
 	is_knockback = false
+	
+func apply_modifier(stat:String,modifier:float, duration: float) -> void:
+	# Apply a temporary buff or debuff to the creature
+	# duration: value 0 has no expiration
+	if duration>0: modifier_timers.append({"stat":stat,"modifier":-modifier,"duration":duration})
+	
+	if stat == "damage":
+		# damage modifier is applied to creature damage stat. This is added
+		# to the weapon damage, if there is a weapon, so it stacks.
+		print("Damage mod: " + str(modifier))
+		_damage += modifier
