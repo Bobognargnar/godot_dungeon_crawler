@@ -1,9 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://kbryvmo0ma51"]
+[gd_scene load_steps=8 format=3 uid="uid://kbryvmo0ma51"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_lgjky"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dg7ds"]
-bg_color = Color(0.230315, 0.230315, 0.230315, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b3fny"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sb0t6"]
+bg_color = Color(0.827451, 0.866667, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5edt"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -11,6 +25,13 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aos63"]
 bg_color = Color(0.979658, 0.349311, 0.430485, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dg7ds"]
+bg_color = Color(0.230315, 0.230315, 0.230315, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -63,12 +84,24 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
+[node name="HealthBarDelta" type="ProgressBar" parent="."]
+offset_left = 12.0
+offset_top = 575.0
+offset_right = 215.0
+offset_bottom = 583.0
+theme_override_styles/background = SubResource("StyleBoxFlat_b3fny")
+theme_override_styles/fill = SubResource("StyleBoxFlat_sb0t6")
+max_value = 1.0
+step = 0.001
+value = 1.0
+show_percentage = false
+
 [node name="HealthBar" type="ProgressBar" parent="."]
 offset_left = 12.0
 offset_top = 575.0
 offset_right = 215.0
 offset_bottom = 583.0
-theme_override_styles/background = SubResource("StyleBoxFlat_dg7ds")
+theme_override_styles/background = SubResource("StyleBoxFlat_u5edt")
 theme_override_styles/fill = SubResource("StyleBoxFlat_aos63")
 max_value = 1.0
 value = 1.0
