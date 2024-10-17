@@ -121,6 +121,6 @@ func knockback(enemy: Node2D, strength: float) -> void:
 	is_knockback = true
 	var knockback_direction = (enemy.global_position - global_position).normalized()
 	velocity = knockback_direction * strength * -1
-	print(velocity)
+	#print(velocity)
 	move_and_slide()
 	is_knockback = false
