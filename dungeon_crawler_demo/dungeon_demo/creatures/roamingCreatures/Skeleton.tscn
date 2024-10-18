@@ -86,4 +86,15 @@ target_position = Vector2(42, 0)
 collision_mask = 2
 collide_with_areas = true
 
+[node name="DamageIndicator" type="Node2D" parent="."]
+visible = false
+position = Vector2(-6, -36)
+
+[node name="Label" type="Label" parent="DamageIndicator"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.821789, 0.821789, 0.821789, 1)
+theme_override_font_sizes/font_size = 15
+text = "-0"
+
 [connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]

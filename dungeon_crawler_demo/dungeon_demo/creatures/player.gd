@@ -12,7 +12,7 @@ var max_stamina = 10
 var stamina = 10
 var stamina_regen = 0.1
 
-var can_move = false
+#var can_move = false
 var is_disabled = true
 
 
@@ -143,6 +143,17 @@ func start(pos):
 	show()
 
 func take_damage(dam: int) -> void:
+		# Show and animate new damage indicator
+	var new_damage = $DamageIndicator.duplicate()
+	self.add_child(new_damage)
+	new_damage.show()
+	new_damage.get_child(0).text = str(-dam)
+	var dam_tween = create_tween()
+	dam_tween.tween_property(new_damage, "position", Vector2(new_damage.position.x,new_damage.position.y-20), 1)
+	var mod = new_damage.modulate
+	dam_tween.parallel().tween_property(new_damage, "modulate", Color(mod.r,mod.g,mod.b,0.1), 1)
+	dam_tween.connect("finished", on_tween_finished.bind(new_damage))
+	
 	player_hit.emit(1.0*dam/hitpoints)
 
 func move_to_inventory(item: Node2D) -> void:

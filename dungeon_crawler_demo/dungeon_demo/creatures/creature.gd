@@ -27,6 +27,10 @@ var screen_size # Size of the game window.
 var start_attack_time = 0
 var is_knockback = false
 
+var can_move = true
+
+# Damage animation tween storage
+var damage_tweens = []
 
 # Modifier timers
 var modifier_timers = []
@@ -45,6 +49,8 @@ func _process(delta: float) -> void:
 	if is_knockback: return
 	
 	var delta_v = _move(delta)
+	
+	if not can_move: delta_v = Vector2.ZERO
 
 	if delta_v.length() > 0:
 		delta_v = delta_v.normalized() * acc * delta
@@ -87,16 +93,6 @@ func _process(delta: float) -> void:
 			updated_modifers.append(modifier)
 	modifier_timers = updated_modifers
 	
-	"""
-	if tmp_tween and tmp_tween.is_running() and action=="ATTACK":
-		tmp_tween.tween_property($Weapon, "position", Vector2(0,0), 1.0)
-		action = "RETURN"
-	if tmp_tween and tmp_tween.is_running() and action=="RETURN":
-		is_attacking = false
-		action = "IDLE"	
-	"""
-		
-	
 
 func _turn_left():
 	"""Creature facing left """
@@ -123,12 +119,37 @@ func attack_weapon() -> void:
 	start_attack_time = Time.get_ticks_msec()
 	pass
 
+
 func take_damage(dam: int) -> void:
 	var dam_perc = 1.0*dam/hitpoints
-	#print($HealthBar)
+	
+	# Show and animate new damage indicator
+	var new_damage = $DamageIndicator.duplicate()
+	self.add_child(new_damage)
+	new_damage.show()
+	new_damage.get_child(0).text = str(-dam)
+	var dam_tween = create_tween()
+	dam_tween.tween_property(new_damage, "position", Vector2(new_damage.position.x,new_damage.position.y-20), 1)
+	var mod = new_damage.modulate
+	dam_tween.parallel().tween_property(new_damage, "modulate", Color(mod.r,mod.g,mod.b,0.1), 1)
+	dam_tween.connect("finished", on_tween_finished.bind(new_damage))
+
+	
+	# Update health bar
 	$HealthBar.value -= dam_perc
 	if $HealthBar.value <= 0:
-		queue_free()
+		can_move = false
+		$DamageArea.get_child(0).set_deferred("disabled",true)
+		$CollisionShape2D.set_deferred("disabled",true)
+		var smod = self.modulate
+		var death_tween = create_tween()
+		death_tween.tween_property(self,"modulate",Color(smod.r,smod.g,smod.b,0),1)
+		death_tween.connect("finished", on_tween_finished.bind(self))
+
+# Delete animated element after the tween is done
+func on_tween_finished(animated_element: Node2D) -> void:
+	animated_element.queue_free()
+	
 
 func knockback(enemy: Node2D, strength: float) -> void:
 	is_knockback = true
