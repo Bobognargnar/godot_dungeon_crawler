@@ -34,7 +34,8 @@ func _ready() -> void:
 	$HealthBar.hide()
 	$HealthBarDelta.hide()
 	$StaminaBar.hide()
-	pass # Replace with function body.
+	for s in [1,2,3,4,5]:
+		get_node("ItemSlot"+str(s)).hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -44,8 +45,8 @@ func _process(delta: float) -> void:
 	for s in [1,2,3,4,5]:
 		var slot = str(s)
 		if (Input.is_action_pressed("item_"+slot) and
-			get_node("InventoryItem"+slot).get_child_count()>0):
-			get_node("InventoryItem"+slot).get_child(0).use_item()
+			get_node("ItemSlot"+slot).get_node("InventoryItem").get_child_count()>0):
+			get_node("ItemSlot"+slot).get_node("InventoryItem").get_child(0).use_item()
 		
 	
 	if $HealthBar.value < $HealthBarDelta.value:
@@ -69,6 +70,10 @@ func _on_start_button_pressed() -> void:
 	$HealthBar.show()
 	$HealthBarDelta.show()
 	$StaminaBar.show()
+	for s in [1,2,3,4,5]:
+		get_node("ItemSlot"+str(s)).show()
+	
+	
 	healt_bar_active = true
 	start_game.emit()
 
@@ -96,7 +101,7 @@ func update_health_bar(dam_perc: float) -> float:
 func add_to_inventory(item: Node2D) -> void:
 	var inv_slots = [1,2,3,4]
 	for slot in inv_slots:
-		var slot_node = get_node("InventoryItem"+str(slot))
+		var slot_node = get_node("ItemSlot"+str(slot)).get_node("InventoryItem")
 		if slot_node and slot_node.get_child_count()==0:
 			print("HUD: adding item to inventory: " + item.name + " slot " + str(slot))
 			slot_node.add_child(item)

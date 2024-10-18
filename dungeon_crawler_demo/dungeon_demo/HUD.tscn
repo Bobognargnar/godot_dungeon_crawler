@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://kbryvmo0ma51"]
+[gd_scene load_steps=9 format=3 uid="uid://kbryvmo0ma51"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_lgjky"]
+[ext_resource type="Texture2D" uid="uid://d20a20smejnuj" path="res://assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset_2.png" id="2_sxmwq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b3fny"]
 bg_color = Color(0, 0, 0, 1)
@@ -118,20 +119,109 @@ max_value = 1.0
 value = 1.0
 show_percentage = false
 
-[node name="InventoryItem1" type="Node2D" parent="."]
-position = Vector2(16, 568)
+[node name="ItemSlot1" type="Node2D" parent="."]
 
-[node name="InventoryItem2" type="Node2D" parent="."]
-position = Vector2(32, 568)
+[node name="SlotSprite" type="Sprite2D" parent="ItemSlot1"]
+position = Vector2(24, 565)
+texture = ExtResource("2_sxmwq")
+region_enabled = true
+region_rect = Rect2(160, 48, 16, 16)
 
-[node name="InventoryItem3" type="Node2D" parent="."]
-position = Vector2(48, 568)
+[node name="InventoryItem" type="Node2D" parent="ItemSlot1"]
+position = Vector2(24, 564)
 
-[node name="InventoryItem4" type="Node2D" parent="."]
-position = Vector2(64, 568)
+[node name="Label" type="Label" parent="ItemSlot1"]
+offset_left = 21.0
+offset_top = 543.0
+offset_right = 61.0
+offset_bottom = 566.0
+theme_override_font_sizes/font_size = 10
+text = "1
+"
 
-[node name="InventoryItem5" type="Node2D" parent="."]
-position = Vector2(80, 568)
+[node name="ItemSlot2" type="Node2D" parent="."]
+position = Vector2(21, 0)
+
+[node name="SlotSprite" type="Sprite2D" parent="ItemSlot2"]
+position = Vector2(24, 565)
+texture = ExtResource("2_sxmwq")
+region_enabled = true
+region_rect = Rect2(160, 48, 16, 16)
+
+[node name="InventoryItem" type="Node2D" parent="ItemSlot2"]
+position = Vector2(24, 564)
+
+[node name="Label" type="Label" parent="ItemSlot2"]
+offset_left = 21.0
+offset_top = 543.0
+offset_right = 61.0
+offset_bottom = 566.0
+theme_override_font_sizes/font_size = 10
+text = "2
+"
+
+[node name="ItemSlot3" type="Node2D" parent="."]
+position = Vector2(42, 0)
+
+[node name="SlotSprite" type="Sprite2D" parent="ItemSlot3"]
+position = Vector2(24, 565)
+texture = ExtResource("2_sxmwq")
+region_enabled = true
+region_rect = Rect2(160, 48, 16, 16)
+
+[node name="InventoryItem" type="Node2D" parent="ItemSlot3"]
+position = Vector2(24, 564)
+
+[node name="Label" type="Label" parent="ItemSlot3"]
+offset_left = 21.0
+offset_top = 543.0
+offset_right = 61.0
+offset_bottom = 566.0
+theme_override_font_sizes/font_size = 10
+text = "3
+"
+
+[node name="ItemSlot4" type="Node2D" parent="."]
+position = Vector2(63, 0)
+
+[node name="SlotSprite" type="Sprite2D" parent="ItemSlot4"]
+position = Vector2(24, 565)
+texture = ExtResource("2_sxmwq")
+region_enabled = true
+region_rect = Rect2(160, 48, 16, 16)
+
+[node name="InventoryItem" type="Node2D" parent="ItemSlot4"]
+position = Vector2(24, 564)
+
+[node name="Label" type="Label" parent="ItemSlot4"]
+offset_left = 21.0
+offset_top = 543.0
+offset_right = 61.0
+offset_bottom = 566.0
+theme_override_font_sizes/font_size = 10
+text = "4
+"
+
+[node name="ItemSlot5" type="Node2D" parent="."]
+position = Vector2(82, 0)
+
+[node name="SlotSprite" type="Sprite2D" parent="ItemSlot5"]
+position = Vector2(24, 565)
+texture = ExtResource("2_sxmwq")
+region_enabled = true
+region_rect = Rect2(160, 48, 16, 16)
+
+[node name="InventoryItem" type="Node2D" parent="ItemSlot5"]
+position = Vector2(24, 564)
+
+[node name="Label" type="Label" parent="ItemSlot5"]
+offset_left = 21.0
+offset_top = 543.0
+offset_right = 61.0
+offset_bottom = 566.0
+theme_override_font_sizes/font_size = 10
+text = "5
+"
 
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
