@@ -7,6 +7,9 @@ class_name GenericWeapon
 @export var sprite = ""
 @export var stamina_cost = 1
 
+var durability_cost = 1
+var curr_durability = 1.0 # Percentage of full durability
+
 enum state {ATTACK,WAIT,IDLE,RETURN}
 var lock_state = false
 var current_state = state.IDLE
@@ -74,7 +77,7 @@ func _process(delta: float) -> void:
 		hit_enemies = {}
 		$Hitbox.disabled = true
 	
-	if durability <= 0:
+	if curr_durability <= 0:
 		self.get_parent().get_parent().can_move = true
 		queue_free()
 	pass
@@ -94,4 +97,7 @@ func creature_hit(body: Node2D) -> void:
 			body.take_damage(damage + wielder._damage)
 			if not body.immovable:
 				body.knockback(self.get_parent().get_parent(),400)
-			durability -= 1
+			# Monster's weapons do not break
+			if wielder.name == "Player":
+				curr_durability -= ((1.0*durability_cost)/durability)
+				wielder.update_weapon_durabilit(curr_durability)

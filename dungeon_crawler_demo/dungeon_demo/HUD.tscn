@@ -119,6 +119,39 @@ max_value = 1.0
 value = 1.0
 show_percentage = false
 
+[node name="WeaponSlot" type="Node2D" parent="."]
+
+[node name="SlotSprite" type="Sprite2D" parent="WeaponSlot"]
+position = Vector2(32, 522)
+scale = Vector2(2, 2)
+texture = ExtResource("2_sxmwq")
+region_enabled = true
+region_rect = Rect2(160, 48, 16, 16)
+
+[node name="Weapon" type="Node2D" parent="WeaponSlot"]
+position = Vector2(32, 522)
+scale = Vector2(2, 2)
+
+[node name="Label" type="Label" parent="WeaponSlot"]
+visible = false
+offset_left = 24.0
+offset_top = 492.0
+offset_right = 64.0
+offset_bottom = 515.0
+theme_override_font_sizes/font_size = 10
+text = "100%"
+
+[node name="Collection" type="Node2D" parent="."]
+position = Vector2(232, 583)
+metadata/_edit_group_ = true
+
+[node name="CollectionSlot" type="Sprite2D" parent="Collection"]
+visible = false
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_sxmwq")
+region_enabled = true
+region_rect = Rect2(160, 48, 16, 16)
+
 [node name="ItemSlot1" type="Node2D" parent="."]
 
 [node name="SlotSprite" type="Sprite2D" parent="ItemSlot1"]

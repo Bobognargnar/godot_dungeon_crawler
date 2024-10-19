@@ -1,16 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://bej7ojktqrm1p"]
+[gd_scene load_steps=5 format=3 uid="uid://bej7ojktqrm1p"]
 
 [ext_resource type="Script" path="res://items/loot.gd" id="1_w636u"]
 [ext_resource type="Texture2D" uid="uid://d20a20smejnuj" path="res://assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset_2.png" id="2_3qamg"]
+[ext_resource type="PackedScene" uid="uid://2vrx3wy6icev" path="res://PopUpIndicator.tscn" id="3_dc174"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ywb4j"]
 size = Vector2(5, 5)
 
 [node name="Loot" type="Area2D"]
+position = Vector2(32, 0)
+scale = Vector2(12.48, 12.6)
 script = ExtResource("1_w636u")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_3qamg")
 region_enabled = true
 region_rect = Rect2(96, 128, 16, 16)
@@ -19,4 +21,7 @@ region_rect = Rect2(96, 128, 16, 16)
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_ywb4j")
 
+[node name="LootIndicator" parent="." instance=ExtResource("3_dc174")]
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="popup_finished" from="LootIndicator" to="." method="_on_loot_indicator_popup_finished"]

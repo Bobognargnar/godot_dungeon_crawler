@@ -7,6 +7,7 @@ signal hit # Signals when the creature is being hit
 @export var speed = 400
 @export var acc = 1000
 @export var brake = 2000
+@export var can_open_doors = false
 
 var _damage = 0 # This is the real damage!!!
 @export var hitpoints = 20
@@ -112,8 +113,13 @@ func _turn_right():
 func equip_weapon(weapon) -> void:
 	var new_weapon = weapon.duplicate()
 	new_weapon.position = Vector2(0,0)
+	#new_weapon.curr_durability = new_weapon.durability
 	new_weapon.get_node("Sprite").scale = Vector2(1,1)
 	$Weapon.call_deferred("add_child",new_weapon)
+
+# It's only used by the player to update the hud
+func update_weapon_durabilit(durability) -> void:
+	pass
 
 func attack_weapon() -> void:
 	start_attack_time = Time.get_ticks_msec()
@@ -124,15 +130,16 @@ func take_damage(dam: int) -> void:
 	var dam_perc = 1.0*dam/hitpoints
 	
 	# Show and animate new damage indicator
-	var new_damage = $DamageIndicator.duplicate()
-	self.add_child(new_damage)
-	new_damage.show()
-	new_damage.get_child(0).text = str(-dam)
-	var dam_tween = create_tween()
-	dam_tween.tween_property(new_damage, "position", Vector2(new_damage.position.x,new_damage.position.y-20), 1)
-	var mod = new_damage.modulate
-	dam_tween.parallel().tween_property(new_damage, "modulate", Color(mod.r,mod.g,mod.b,0.1), 1)
-	dam_tween.connect("finished", on_tween_finished.bind(new_damage))
+	$PopUpIndicator.animate(str(-dam),20,1)
+	#var new_damage = $DamageIndicator.duplicate()
+	#self.add_child(new_damage)
+	#new_damage.show()
+	#new_damage.get_child(0).text = str(-dam)
+	#var dam_tween = create_tween()
+	#dam_tween.tween_property(new_damage, "position", Vector2(new_damage.position.x,new_damage.position.y-20), 1)
+	#var mod = new_damage.modulate
+	#dam_tween.parallel().tween_property(new_damage, "modulate", Color(mod.r,mod.g,mod.b,0.1), 1)
+	#dam_tween.connect("finished", on_tween_finished.bind(new_damage))
 
 	
 	# Update health bar

@@ -4,7 +4,10 @@ extends Creature
 signal player_hit(dam: float)
 
 signal move_to_inventory_hud(item: Node2D)
+signal move_to_weapons_hud(item: Node2D)
+signal move_to_collection_hud(item: Node2D)
 signal remove_from_inventory_hud(item: Node2D)
+signal update_weapon_durabilit_hud(dur: float)
 
 # Percentage of STAMINA changed
 signal stamina_change(stam: float)
@@ -15,6 +18,8 @@ var stamina_regen = 0.1
 #var can_move = false
 var is_disabled = true
 
+# All unique non consumable items are here
+var collection = []
 
 func _ready() -> void:
 	super()
@@ -82,7 +87,7 @@ func disable_player() -> void:
 
 func enable_player() -> void:
 	show()
-	take_damage(-hitpoints)
+	#take_damage(-hitpoints)
 	set_collision_mask_value(1,true)
 	set_collision_layer_value(1,true)
 	immovable = false
@@ -144,21 +149,26 @@ func start(pos):
 
 func take_damage(dam: int) -> void:
 		# Show and animate new damage indicator
-	var new_damage = $DamageIndicator.duplicate()
-	self.add_child(new_damage)
-	new_damage.show()
-	new_damage.get_child(0).text = str(-dam)
-	var dam_tween = create_tween()
-	dam_tween.tween_property(new_damage, "position", Vector2(new_damage.position.x,new_damage.position.y-20), 1)
-	var mod = new_damage.modulate
-	dam_tween.parallel().tween_property(new_damage, "modulate", Color(mod.r,mod.g,mod.b,0.1), 1)
-	dam_tween.connect("finished", on_tween_finished.bind(new_damage))
-	
+	$PopUpIndicator.animate(str(-dam),20,1)
 	player_hit.emit(1.0*dam/hitpoints)
+
+func equip_weapon(weapon: Node2D) -> void:
+	super(weapon) # Creature equips weapon too
+	move_to_weapons_hud.emit(weapon)
+
+# To update the hud
+func update_weapon_durabilit(dur_perc: float) -> void:
+	update_weapon_durabilit_hud.emit(dur_perc)
+	pass
 
 func move_to_inventory(item: Node2D) -> void:
 	print("Player: move to inventory " + item.name)
 	move_to_inventory_hud.emit(item)
+
+func move_to_collection(item: Node2D) -> void:
+	print("Player: move to collection " + item.name)
+	collection.append(item)
+	move_to_collection_hud.emit(item)
 
 func remove_from_inventory(item: Node2D) -> void:
 	print("Player: remove from inventory" + item.name)

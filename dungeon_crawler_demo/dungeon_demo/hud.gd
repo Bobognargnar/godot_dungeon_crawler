@@ -98,13 +98,49 @@ func update_health_bar(dam_perc: float) -> float:
 		
 	return real_health
 
+func update_weapon_durability(durability: float) -> void:
+	get_node("WeaponSlot").get_node("Label").text(str(durability) + "%")
+
 func add_to_inventory(item: Node2D) -> void:
 	var inv_slots = [1,2,3,4]
 	for slot in inv_slots:
 		var slot_node = get_node("ItemSlot"+str(slot)).get_node("InventoryItem")
 		if slot_node and slot_node.get_child_count()==0:
-			print("HUD: adding item to inventory: " + item.name + " slot " + str(slot))
+			#print("HUD: adding item to inventory: " + item.name + " slot " + str(slot))
 			slot_node.add_child(item)
 			break
+
+func add_to_weapons(item: Node2D) -> void:
+	var slot_node = get_node("WeaponSlot").get_node("Weapon")
+	if not slot_node:
+		return
 	
-	pass
+	# Remove old weapon
+	if slot_node.get_child_count()>0:
+		slot_node.remove_child(slot_node.get_child(0))
+	
+	# Set new weapon
+	item.show()
+	slot_node.call_deferred("add_child",item)
+	
+	# Display durability in hud
+	get_node("WeaponSlot").get_node("Label").text = "100%"
+	get_node("WeaponSlot").get_node("Label").show()
+
+func add_to_collection(item: Node2D) -> void:
+	""" Add collected item to a new collection slot"""
+	var collection_slot = get_node("Collection").get_child(get_node("Collection").get_child_count()-1)
+	
+	if collection_slot.get_child_count() > 0:
+		collection_slot = collection_slot.duplicate()
+		collection_slot.remove_child(collection_slot.get_child(0))
+		get_node("Collection").add_child(collection_slot)
+		collection_slot.position.x += 30
+	
+	if collection_slot.get_child_count() == 0:
+		collection_slot.show()
+		collection_slot.add_child(item)
+		
+
+func _on_player_update_weapon_durabilit_hud(dur: float) -> void:
+	get_node("WeaponSlot").get_node("Label").text = str(dur*100) + "%"

@@ -21,11 +21,15 @@ position = Vector2(130, 471)
 
 [node name="Player" parent="." instance=ExtResource("4_j4go3")]
 position = Vector2(132, 470)
+can_open_doors = true
 hitpoints = 50
 metadata/_edit_group_ = true
 
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="start_game" from="Hud" to="." method="new_game"]
+[connection signal="move_to_collection_hud" from="Player" to="." method="_on_player_move_to_collection_hud"]
 [connection signal="move_to_inventory_hud" from="Player" to="." method="_on_player_move_to_inventory_hud"]
+[connection signal="move_to_weapons_hud" from="Player" to="." method="_on_player_move_to_weapons_hud"]
 [connection signal="player_hit" from="Player" to="." method="manage_player_health"]
 [connection signal="stamina_change" from="Player" to="." method="_on_player_stamina_change"]
+[connection signal="update_weapon_durabilit_hud" from="Player" to="Hud" method="_on_player_update_weapon_durabilit_hud"]

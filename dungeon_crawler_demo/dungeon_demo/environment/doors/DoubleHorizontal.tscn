@@ -1,10 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cddd555118grx"]
+[gd_scene load_steps=6 format=3 uid="uid://cddd555118grx"]
 
-[ext_resource type="Script" path="res://environment/doors/doublehorizontal.gd" id="1_268m7"]
+[ext_resource type="Script" path="res://environment/doors/door_script.gd" id="1_268m7"]
 [ext_resource type="Texture2D" uid="uid://bviev7dgmq5hc" path="res://assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="2_iyq2c"]
+[ext_resource type="PackedScene" uid="uid://2vrx3wy6icev" path="res://PopUpIndicator.tscn" id="3_uuq1i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b3dmn"]
-size = Vector2(32, 7)
+size = Vector2(32, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rm0as"]
 size = Vector2(30, 11)
@@ -35,6 +36,9 @@ shape = SubResource("RectangleShape2D_rm0as")
 
 [node name="ClosingTimeout" type="Timer" parent="."]
 wait_time = 1.5
+
+[node name="PopUpIndicator" parent="." instance=ExtResource("3_uuq1i")]
+position = Vector2(16, -22)
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -62,5 +62,11 @@ func _on_player_stamina_change(stam: float) -> void:
 	$Hud.update_stamina_bar(stam)
 
 func _on_player_move_to_inventory_hud(item: Node2D) -> void:
-	print("Main: move to inventory " + item.name)
 	$Hud.add_to_inventory(item)
+
+func _on_player_move_to_collection_hud(item: Node2D) -> void:
+	$Hud.add_to_collection(item)
+
+
+func _on_player_move_to_weapons_hud(item: Node2D) -> void:
+	$Hud.add_to_weapons(item)

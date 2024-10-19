@@ -4,9 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://clao6lgg1c8xe" path="res://assets/beer.png" id="1_meqt4"]
 
 [node name="Food" type="Area2D"]
+position = Vector2(24, 32)
+scale = Vector2(0.5, 0.554)
 script = ExtResource("1_4mjpm")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.115, 0.115)
+position = Vector2(0.735294, 0)
+scale = Vector2(1.111, 1)
 texture = ExtResource("1_meqt4")
 region_rect = Rect2(170, 150, 150, 180)

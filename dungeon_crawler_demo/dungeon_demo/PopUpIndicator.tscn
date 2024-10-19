@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://2vrx3wy6icev"]
+
+[ext_resource type="Script" path="res://pop_up_indicator.gd" id="1_s6d7o"]
+
+[node name="PopUpIndicator" type="Node2D"]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_s6d7o")
+metadata/_edit_group_ = true
+
+[node name="Indicator" type="Node2D" parent="."]
+visible = false
+
+[node name="Label" type="Label" parent="Indicator"]
+offset_left = -5.33333
+offset_top = -5.33333
+offset_right = 34.6666
+offset_bottom = 17.6667
+scale = Vector2(0.302779, 0.296264)
+text = "test"
+horizontal_alignment = 1

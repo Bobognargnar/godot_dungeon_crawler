@@ -10,3 +10,4 @@ script = ExtResource("1_jb73q")
 texture = ExtResource("2_tpgsp")
 region_enabled = true
 region_rect = Rect2(144, 128, 16, 16)
+region_filter_clip_enabled = true
