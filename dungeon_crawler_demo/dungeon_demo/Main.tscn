@@ -22,7 +22,6 @@ position = Vector2(130, 471)
 [node name="Player" parent="." instance=ExtResource("4_j4go3")]
 position = Vector2(132, 470)
 can_open_doors = true
-hitpoints = 50
 metadata/_edit_group_ = true
 
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]

@@ -1,4 +1,4 @@
-extends Creature
+extends RoamingCreature
 
 var target = null
 @export var damage = 5

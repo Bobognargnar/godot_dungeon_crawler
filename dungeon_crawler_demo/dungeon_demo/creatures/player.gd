@@ -14,6 +14,7 @@ signal stamina_change(stam: float)
 var max_stamina = 10
 var stamina = 10
 var stamina_regen = 0.1
+@export var hitpoints = 50
 
 #var can_move = false
 var is_disabled = true
@@ -23,6 +24,7 @@ var collection = []
 
 func _ready() -> void:
 	super()
+	_hitpoints = hitpoints
 	hide()
 
 var last_attack_dir = facing_direction
@@ -150,7 +152,7 @@ func start(pos):
 func take_damage(dam: int) -> void:
 		# Show and animate new damage indicator
 	$PopUpIndicator.animate(str(-dam),20,1)
-	player_hit.emit(1.0*dam/hitpoints)
+	player_hit.emit(1.0*dam/_hitpoints)
 
 func equip_weapon(weapon: Node2D) -> void:
 	super(weapon) # Creature equips weapon too

@@ -32,6 +32,7 @@ func _set_door_traversable(flag: bool) -> void:
 
 func _set_door_status(new_status: String) -> void:
 	$Sprite2D.set_region_rect(tile_regions[new_status])
+	print(new_status)
 	current_status = new_status
 	if new_status == "closed":
 		_set_door_traversable(false)
@@ -73,7 +74,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		door_disabled = true
 		
 		if opening == "up_down":
-			if (body.global_position.y > get_parent().global_position.y):
+			print(str(body.global_position.y)+ " " + str(global_position.y))
+			if (body.global_position.y > global_position.y):
 				_set_door_status("open_up")
 			else:
 				_set_door_status("open_down")

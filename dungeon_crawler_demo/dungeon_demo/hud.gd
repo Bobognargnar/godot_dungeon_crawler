@@ -34,6 +34,7 @@ func _ready() -> void:
 	$HealthBar.hide()
 	$HealthBarDelta.hide()
 	$StaminaBar.hide()
+	$WeaponSlot.hide()
 	for s in [1,2,3,4,5]:
 		get_node("ItemSlot"+str(s)).hide()
 
@@ -70,6 +71,7 @@ func _on_start_button_pressed() -> void:
 	$HealthBar.show()
 	$HealthBarDelta.show()
 	$StaminaBar.show()
+	$WeaponSlot.show()
 	for s in [1,2,3,4,5]:
 		get_node("ItemSlot"+str(s)).show()
 	
@@ -97,9 +99,7 @@ func update_health_bar(dam_perc: float) -> float:
 			$HealthBar.value = real_health
 		
 	return real_health
-
-func update_weapon_durability(durability: float) -> void:
-	get_node("WeaponSlot").get_node("Label").text(str(durability) + "%")
+	
 
 func add_to_inventory(item: Node2D) -> void:
 	var inv_slots = [1,2,3,4]
@@ -121,6 +121,7 @@ func add_to_weapons(item: Node2D) -> void:
 	
 	# Set new weapon
 	item.show()
+	item.scale = Vector2(0.5,0.5)
 	slot_node.call_deferred("add_child",item)
 	
 	# Display durability in hud
@@ -143,4 +144,8 @@ func add_to_collection(item: Node2D) -> void:
 		
 
 func _on_player_update_weapon_durabilit_hud(dur: float) -> void:
-	get_node("WeaponSlot").get_node("Label").text = str(dur*100) + "%"
+	$WeaponSlot/Label.text = str(int(dur*100)) + "%"
+	if dur < 0.1:
+		var item = get_node("WeaponSlot").get_node("Weapon").get_child(0)
+		item.queue_free()
+		$WeaponSlot/Label.hide()

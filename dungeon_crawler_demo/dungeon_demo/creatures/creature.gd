@@ -10,7 +10,7 @@ signal hit # Signals when the creature is being hit
 @export var can_open_doors = false
 
 var _damage = 0 # This is the real damage!!!
-@export var hitpoints = 20
+var _hitpoints = 20
 @export var immovable = false
 
 var is_attacking = false
@@ -127,7 +127,7 @@ func attack_weapon() -> void:
 
 
 func take_damage(dam: int) -> void:
-	var dam_perc = 1.0*dam/hitpoints
+	var dam_perc = 1.0*dam/_hitpoints
 	
 	# Show and animate new damage indicator
 	$PopUpIndicator.animate(str(-dam),20,1)

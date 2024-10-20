@@ -77,7 +77,7 @@ func _process(delta: float) -> void:
 		hit_enemies = {}
 		$Hitbox.disabled = true
 	
-	if curr_durability <= 0:
+	if curr_durability <= 0.1:
 		self.get_parent().get_parent().can_move = true
 		queue_free()
 	pass
@@ -99,5 +99,6 @@ func creature_hit(body: Node2D) -> void:
 				body.knockback(self.get_parent().get_parent(),400)
 			# Monster's weapons do not break
 			if wielder.name == "Player":
-				curr_durability -= ((1.0*durability_cost)/durability)
+				curr_durability -= max(((1.0*durability_cost)/durability),0.1)
+				print(curr_durability)
 				wielder.update_weapon_durabilit(curr_durability)
