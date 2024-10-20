@@ -1,19 +1,136 @@
-[gd_scene load_steps=4 format=3 uid="uid://dd1bgsnxjoouj"]
+[gd_scene load_steps=9 format=3 uid="uid://dd1bgsnxjoouj"]
 
 [ext_resource type="Script" path="res://items/weapons/sword.gd" id="1_mjvnv"]
-[ext_resource type="Texture2D" uid="uid://8pnxsy7lw5kt" path="res://assets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7/frames/weapon_red_gem_sword.png" id="2_fsrtj"]
+[ext_resource type="Texture2D" uid="uid://cr6vy5b6v53f6" path="res://assets/sword_swing-Sheet.png" id="2_kx7dm"]
+[ext_resource type="Texture2D" uid="uid://c5abtkj1206j3" path="res://assets/sword_vertical.png" id="2_wg2xt"]
+
+[sub_resource type="Animation" id="Animation_rayfb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3/Area2D/Hitbox:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite3/Area2D/Hitbox:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(12, -7.75)]
+}
+
+[sub_resource type="Animation" id="Animation_pfrt6"]
+resource_name = "weapon_idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_sxar8"]
+resource_name = "attack_left"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.233333, 0.3, 0.366667, 0.533333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3/Area2D/Hitbox:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite3/Area2D/Hitbox:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.233333, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(12, -7.75), Vector2(9.5, 11.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fpqyw"]
+_data = {
+"RESET": SubResource("Animation_rayfb"),
+"attack_left": SubResource("Animation_sxar8"),
+"weapon_idle": SubResource("Animation_pfrt6")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wqut"]
-size = Vector2(6, 31)
+size = Vector2(23, 23)
 
 [node name="Sword" type="Area2D"]
 script = ExtResource("1_mjvnv")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_fsrtj")
+texture = ExtResource("2_wg2xt")
+region_rect = Rect2(48, 16, 40, 16)
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5.5)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fpqyw")
+}
+
+[node name="Sprite3" type="Sprite2D" parent="."]
+texture = ExtResource("2_kx7dm")
+hframes = 7
+
+[node name="Area2D" type="Area2D" parent="Sprite3"]
+
+[node name="Hitbox" type="CollisionShape2D" parent="Sprite3/Area2D"]
+position = Vector2(12, -7.75)
 shape = SubResource("RectangleShape2D_5wqut")
+disabled = true
 
 [connection signal="body_entered" from="." to="." method="creature_hit"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="Sprite3/Area2D" to="." method="creature_hit"]

@@ -48,6 +48,9 @@ func _gain_stamina(reg:float):
 	
 
 func _process(delta: float) -> void:
+	# Rotate player following mouse position
+	look_at(get_global_mouse_position()) 
+	
 	super(delta) # This handle moves
 	
 	stamina_timeout_s -= delta
@@ -156,6 +159,7 @@ func take_damage(dam: int) -> void:
 
 func equip_weapon(weapon: Node2D) -> void:
 	super(weapon) # Creature equips weapon too
+	weapon.get_node("Sprite3").hide()
 	move_to_weapons_hud.emit(weapon)
 
 # To update the hud

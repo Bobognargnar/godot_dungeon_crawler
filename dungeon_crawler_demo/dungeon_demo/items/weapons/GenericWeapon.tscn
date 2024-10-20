@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://sjrk1x0uta24"]
+[gd_scene load_steps=4 format=3 uid="uid://sjrk1x0uta24"]
 
 [ext_resource type="Script" path="res://items/weapons/genericWeapon.gd" id="1_toiwn"]
+[ext_resource type="Texture2D" uid="uid://cr6vy5b6v53f6" path="res://assets/sword_swing-Sheet.png" id="2_besbx"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wqut"]
-size = Vector2(5, 17)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oe231"]
+size = Vector2(23, 23)
 
 [node name="GenericWeapon" type="Area2D"]
 script = ExtResource("1_toiwn")
@@ -11,8 +12,16 @@ script = ExtResource("1_toiwn")
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3.5)
-shape = SubResource("RectangleShape2D_5wqut")
+[node name="Sprite3" type="Sprite2D" parent="."]
+texture = ExtResource("2_besbx")
+hframes = 7
+frame = 4
+
+[node name="Area2D" type="Area2D" parent="Sprite3"]
+
+[node name="Hitbox" type="CollisionShape2D" parent="Sprite3/Area2D"]
+position = Vector2(9.5, 11.5)
+shape = SubResource("RectangleShape2D_oe231")
+disabled = true
 
 [connection signal="body_entered" from="." to="." method="creature_hit"]

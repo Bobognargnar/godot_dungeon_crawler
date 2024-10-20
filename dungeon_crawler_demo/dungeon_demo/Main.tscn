@@ -13,14 +13,17 @@ wait_time = 2.0
 one_shot = true
 
 [node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(130, 471)
+position = Vector2(-201, 635)
 
 [node name="Hud" parent="." instance=ExtResource("4_5oq4r")]
 
 [node name="Level0" parent="." instance=ExtResource("4_0kgsl")]
+scale = Vector2(4, 4)
 
 [node name="Player" parent="." instance=ExtResource("4_j4go3")]
-position = Vector2(132, 470)
+position = Vector2(-200, 637)
+rotation = 1.5708
+scale = Vector2(4, 4)
 can_open_doors = true
 metadata/_edit_group_ = true
 

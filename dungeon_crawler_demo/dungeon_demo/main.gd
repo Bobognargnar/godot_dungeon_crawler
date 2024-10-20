@@ -50,6 +50,7 @@ func game_over() -> void:
 	
 # Called by clicking on START button in HUD
 func new_game():
+	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$Hud.show_message("Get Ready")

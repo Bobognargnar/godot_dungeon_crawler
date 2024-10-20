@@ -47,6 +47,8 @@ func _move(delta: float) -> Vector2:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
+	
 	if is_knockback: return
 	
 	var delta_v = _move(delta)
@@ -67,20 +69,23 @@ func _process(delta: float) -> void:
 		else:
 			velocity -= velocity.normalized() * brake * delta
 		
-	if velocity.length() > 0:
-		$AnimatedSprite2D.play()
-	else:
-		$AnimatedSprite2D.stop()
+	#if velocity.length() > 0:
+		#if $Weapon.get_child_count()>0:
+			#$Weapon.get_child(0).get_node("AnimationPlayer").play("weapon_idle")
+	#else:
+		#if $Weapon.get_child_count()>0:
+			#$Weapon.get_child(0).get_node("AnimationPlayer").stop()
+		#pass
 		
 		
 	if velocity.length() != 0:
 		$AnimatedSprite2D.animation = "walk"
 		$AnimatedSprite2D.flip_v = false
 		
-		if velocity.x < 0 and not $AnimatedSprite2D.flip_h:
-			_turn_left()
-		if velocity.x > 0 and $AnimatedSprite2D.flip_h:
-			_turn_right()
+		#if velocity.x < 0 and not $AnimatedSprite2D.flip_h:
+			#_turn_left()
+		#if velocity.x > 0 and $AnimatedSprite2D.flip_h:
+			#_turn_right()
 		
 	move_and_slide()
 	
@@ -111,18 +116,20 @@ func _turn_right():
 
 # Method to equip a weapon
 func equip_weapon(weapon) -> void:
+	
+	
 	var new_weapon = weapon.duplicate()
 	new_weapon.position = Vector2(0,0)
-	#new_weapon.curr_durability = new_weapon.durability
-	new_weapon.get_node("Sprite").scale = Vector2(1,1)
+	##new_weapon.curr_durability = new_weapon.durability
+	new_weapon.get_node("Sprite").hide()
 	$Weapon.call_deferred("add_child",new_weapon)
+	pass
 
 # It's only used by the player to update the hud
 func update_weapon_durabilit(durability) -> void:
 	pass
 
 func attack_weapon() -> void:
-	start_attack_time = Time.get_ticks_msec()
 	pass
 
 
