@@ -22,7 +22,6 @@ scale = Vector2(4, 4)
 
 [node name="Player" parent="." instance=ExtResource("4_j4go3")]
 position = Vector2(-200, 637)
-rotation = 1.5708
 scale = Vector2(3, 3)
 acc = 1500
 can_open_doors = true

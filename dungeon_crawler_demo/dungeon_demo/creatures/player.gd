@@ -48,19 +48,31 @@ func _gain_stamina(reg:float):
 	
 
 func _process(delta: float) -> void:
+	
+	# Player movement manager
+	if is_knockback: return
+	var delta_v = _move(delta)
+	var new_velocity = compute_velocity(delta_v,delta)
+	velocity = new_velocity
+	move_and_slide()
+	
+	# Player movement animation manager
+	_animate_player_movement(delta_v)
+	
 	# Rotate player following mouse position
-	look_at(get_global_mouse_position()) 
+	#look_at(get_global_mouse_position()) 
 	
-	super(delta) # This handle moves
+	#super(delta) # This handle moves
 	
+	# Player stamina manager
 	stamina_timeout_s -= delta
 	if stamina_timeout_s <= 0: 
 		stamina_timeout_s=0
 		if stamina < max_stamina:
 			_gain_stamina(stamina_regen)
 			stamina_change.emit((1.0*stamina_regen)/max_stamina)
-	#print(stamina_timeout_s)
 	
+	# Player attack manager
 	if Input.is_action_pressed("attack") and _can_attack():
 		
 		# Handle stamina usage
@@ -81,6 +93,44 @@ func _process(delta: float) -> void:
 	# If stamina recovery timer is expired, recover stamina
 	# change_stamina.emit()
 
+
+var idle_animation = "idle_right"
+var walk_animation = "walk_right"
+
+# Manage idle and movement animation
+func _animate_player_movement(delta_v: Vector2) -> void:
+	if is_attacking: return
+	#$AnimationPlayer.stop()
+	#print(delta_v.angle())
+	#print($AnimationPlayer.current_animation)
+	if delta_v == Vector2.ZERO:
+		$AnimationPlayer.play(idle_animation)
+		return
+	elif (delta_v.angle()>=0 and delta_v.angle()<(PI/2)*0.9):
+		$SpriteIdle.flip_h = false
+		walk_animation = "walk_right"
+		idle_animation = "idle_right"
+	elif (delta_v.angle()>(PI/2)*1.1 and delta_v.angle()<=(PI)*1.01):
+		$SpriteIdle.flip_h = true
+		walk_animation = "walk_right"
+		idle_animation = "idle_right"		
+	elif (delta_v.angle()>=(PI/2)*0.9 and delta_v.angle()<=(PI/2)*1.1):
+		walk_animation = "walk_down"
+		idle_animation = "idle_down"
+	elif (delta_v.angle()<=-(PI/2)*0.9 and delta_v.angle()>=-(PI/2)*1.1):
+		walk_animation = "walk_up"
+		idle_animation = "idle_up"
+	elif (delta_v.angle()<=-(PI/2)*1.1):
+		$SpriteIdle.flip_h = false
+		walk_animation = "walk_left_up"
+		idle_animation = "idle_left_up"
+	elif (delta_v.angle()>=-(PI/2)*0.9 and delta_v.angle()<=0):
+		$SpriteIdle.flip_h = true
+		walk_animation = "walk_left_up"
+		idle_animation = "idle_left_up"
+	$AnimationPlayer.play(walk_animation)
+	pass
+
 func disable_player() -> void:
 	hide()
 	set_collision_mask_value(1,false)
@@ -92,6 +142,7 @@ func disable_player() -> void:
 
 func enable_player() -> void:
 	show()
+	$AnimationPlayer.play("idle_right")
 	#take_damage(-hitpoints)
 	set_collision_mask_value(1,true)
 	set_collision_layer_value(1,true)
@@ -99,11 +150,11 @@ func enable_player() -> void:
 	is_disabled = false
 	can_move = true
 
-# Manage creature movement. Default creature doesn't move!
+# Manage player movement controls and return a direction vector
 func _move(delta: float) -> Vector2:
 	var delta_v = Vector2.ZERO
 	
-	last_attack_dir = _get_attack_direction()
+	#last_attack_dir = _get_attack_direction()
 	
 	if can_move:
 		if Input.is_action_pressed("move_right"):
@@ -151,6 +202,8 @@ func _get_attack_direction() -> int:
 func start(pos):
 	position = pos
 	show()
+	print("Idling")
+	$AnimationPlayer.play("idle_right")
 
 func take_damage(dam: int) -> void:
 		# Show and animate new damage indicator

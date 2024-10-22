@@ -49,10 +49,28 @@ func _move(delta: float) -> Vector2:
 func _process(delta: float) -> void:
 	
 	
+	
+	# Movement manager
 	if is_knockback: return
-	
 	var delta_v = _move(delta)
+	var new_velocity = compute_velocity(delta_v,delta)
+	velocity = new_velocity
+	move_and_slide()
 	
+	# Modifiers manager
+	var updated_modifers = []
+	for modifier in modifier_timers:
+		modifier["duration"] -= delta
+		if modifier["duration"] <= 0:
+			apply_modifier(modifier["stat"],modifier["modifier"],0)
+		else:
+			updated_modifers.append(modifier)
+	modifier_timers = updated_modifers
+	
+
+func compute_velocity(delta_v: Vector2,delta:float) -> Vector2:
+	
+	# Movement is disabled, preserve intertia
 	if not can_move: delta_v = Vector2.ZERO
 
 	if delta_v.length() > 0:
@@ -77,27 +95,11 @@ func _process(delta: float) -> void:
 			#$Weapon.get_child(0).get_node("AnimationPlayer").stop()
 		#pass
 		
-		
-	if velocity.length() != 0:
-		$AnimatedSprite2D.animation = "walk"
-		$AnimatedSprite2D.flip_v = false
-		
 		#if velocity.x < 0 and not $AnimatedSprite2D.flip_h:
 			#_turn_left()
 		#if velocity.x > 0 and $AnimatedSprite2D.flip_h:
 			#_turn_right()
-		
-	move_and_slide()
-	
-	# Update timer modifiers!
-	var updated_modifers = []
-	for modifier in modifier_timers:
-		modifier["duration"] -= delta
-		if modifier["duration"] <= 0:
-			apply_modifier(modifier["stat"],modifier["modifier"],0)
-		else:
-			updated_modifers.append(modifier)
-	modifier_timers = updated_modifers
+	return velocity
 	
 
 func _turn_left():
