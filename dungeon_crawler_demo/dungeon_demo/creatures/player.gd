@@ -100,12 +100,15 @@ var walk_animation = "walk_right"
 # Manage idle and movement animation
 func _animate_player_movement(delta_v: Vector2) -> void:
 	if is_attacking: return
-	#$AnimationPlayer.stop()
-	#print(delta_v.angle())
-	#print($AnimationPlayer.current_animation)
+
 	if delta_v == Vector2.ZERO:
 		$AnimationPlayer.play(idle_animation)
+		# TODO this would be better with AnimationTree
+		if $Weapon.get_child_count()>0:
+			$Weapon.get_child(0).get_node("AnimationPlayer").play(idle_animation)
+			$Weapon.get_child(0).get_node("AnimationPlayer").seek($AnimationPlayer.get_current_animation_position())
 		return
+		
 	elif (delta_v.angle()>=0 and delta_v.angle()<(PI/2)*0.9):
 		$SpriteIdle.flip_h = false
 		walk_animation = "walk_right"
@@ -129,6 +132,10 @@ func _animate_player_movement(delta_v: Vector2) -> void:
 		walk_animation = "walk_left_up"
 		idle_animation = "idle_left_up"
 	$AnimationPlayer.play(walk_animation)
+	if $Weapon.get_child_count()>0:
+		$Weapon.get_child(0).get_node("Sprite3").flip_h = $SpriteIdle.flip_h
+		$Weapon.get_child(0).get_node("AnimationPlayer").play(walk_animation)
+		$Weapon.get_child(0).get_node("AnimationPlayer").seek($AnimationPlayer.get_current_animation_position())
 	pass
 
 func disable_player() -> void:
