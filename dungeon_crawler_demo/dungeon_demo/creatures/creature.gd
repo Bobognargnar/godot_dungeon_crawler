@@ -21,7 +21,7 @@ attack_directions
 5 6 7
 """
 enum attack_direction {UPLEFT,UP,UPRIGHT,LEFT,RIGHT,DOWNLEFT,DOWN,DOWNRIGHT,UP_FROMLEFT,DOWN_FROMLEFT}
-var facing_direction = attack_direction.RIGHT
+#var facing_direction = attack_direction.RIGHT
 
 var screen_size # Size of the game window.
 
@@ -72,6 +72,7 @@ func compute_velocity(delta_v: Vector2,delta:float) -> Vector2:
 	
 	# Movement is disabled, preserve intertia
 	if not can_move: delta_v = Vector2.ZERO
+	
 
 	if delta_v.length() > 0:
 		delta_v = delta_v.normalized() * acc * delta
@@ -87,6 +88,7 @@ func compute_velocity(delta_v: Vector2,delta:float) -> Vector2:
 		else:
 			velocity -= velocity.normalized() * brake * delta
 		
+
 	#if velocity.length() > 0:
 		#if $Weapon.get_child_count()>0:
 			#$Weapon.get_child(0).get_node("AnimationPlayer").play("weapon_idle")
@@ -104,14 +106,14 @@ func compute_velocity(delta_v: Vector2,delta:float) -> Vector2:
 
 func _turn_left():
 	"""Creature facing left """
-	facing_direction = attack_direction.LEFT
+	#facing_direction = attack_direction.LEFT
 	$AnimatedSprite2D.flip_h = true
 	$Weapon.rotation = abs($Weapon.rotation)
 	$Weapon.position = Vector2(-$Weapon.position.x, $Weapon.position.y)
 	
 func _turn_right():
 	"""Creature facing right """
-	facing_direction = attack_direction.RIGHT
+	#facing_direction = attack_direction.RIGHT
 	$AnimatedSprite2D.flip_h = false
 	$Weapon.rotation = -abs($Weapon.rotation)
 	$Weapon.position = Vector2(-$Weapon.position.x, $Weapon.position.y)

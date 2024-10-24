@@ -47,17 +47,44 @@ func _gain_stamina(reg:float):
 		stamina = max_stamina
 	
 
+var move_delay = 0.0
+
 func _process(delta: float) -> void:
+	
+	lounge_delay = max(0,lounge_delay-delta)
+	move_delay = max(0,move_delay-delta)
 	
 	# Player movement manager
 	if is_knockback: return
+	
+	
+	
 	var delta_v = _move(delta)
 	var new_velocity = compute_velocity(delta_v,delta)
 	velocity = new_velocity
-	move_and_slide()
 	
+	
+	
+	if move_delay > 0:
+		can_move = false
+	else:
+		can_move = true
+	
+	if lounge_delay == 0 and lounge!=Vector2.ZERO:
+		velocity = Vector2.ZERO
+		velocity = lounge*5*delta
+		lounge = Vector2.ZERO
+		move_delay = 0.5
+	
+	if hard_stop:
+		velocity = Vector2.ZERO
+		hard_stop = false
+	
+	move_and_slide()
 	# Player movement animation manager
 	_animate_player_movement(delta_v)
+	
+	#move_and_slide()
 	
 	# Rotate player following mouse position
 	#look_at(get_global_mouse_position()) 
@@ -66,8 +93,8 @@ func _process(delta: float) -> void:
 	
 	# Player stamina manager
 	stamina_timeout_s -= delta
-	if stamina_timeout_s <= 0: 
-		stamina_timeout_s=0
+	stamina_timeout_s = max(0,stamina_timeout_s)
+	if stamina_timeout_s == 0:
 		if stamina < max_stamina:
 			_gain_stamina(stamina_regen)
 			stamina_change.emit((1.0*stamina_regen)/max_stamina)
@@ -78,15 +105,23 @@ func _process(delta: float) -> void:
 		# Handle stamina usage
 		if stamina_timeout_s <=0:
 			if $Weapon.get_child(0).stamina_cost <= stamina:
-				$Weapon.get_child(0).start_attack(last_attack_dir)
+				is_attacking = true
+				# Player attack animation manager
+				_animate_player_attack()
+				#velocity += lounge
+				
 				can_move = false
+				
+				stamina_timeout_s = $Weapon.get_child(0).wait_time
+				_consume_stamina($Weapon.get_child(0).stamina_cost)
+				# On change of stamina value, signal everyone
+				stamina_change.emit((-1.0*$Weapon.get_child(0).stamina_cost)/max_stamina)
 			else:
 				print("Stamina too low")
-				
-			stamina_timeout_s = $Weapon.get_child(0).wait_time
-			_consume_stamina($Weapon.get_child(0).stamina_cost)
-			# On change of stamina value, signal everyone
-			stamina_change.emit((-1.0*$Weapon.get_child(0).stamina_cost)/max_stamina)
+			
+	
+	
+	
 			
 	
 	# Handle stamina regeneration
@@ -96,47 +131,92 @@ func _process(delta: float) -> void:
 
 var idle_animation = "idle_right"
 var walk_animation = "walk_right"
+var facing_direction = "right"
+var attack_animation = "attack_right"
+var lounge = Vector2.ZERO
+var lounge_delay = 0.0
+var hard_stop = false
 
 # Manage idle and movement animation
 func _animate_player_movement(delta_v: Vector2) -> void:
-	if is_attacking: return
 
 	if delta_v == Vector2.ZERO:
-		$AnimationPlayer.play(idle_animation)
+		if is_attacking: return
+		$AnimationPlayer.play("idle_"+facing_direction)
 		# TODO this would be better with AnimationTree
 		if $Weapon.get_child_count()>0:
-			$Weapon.get_child(0).get_node("AnimationPlayer").play(idle_animation)
+			$Weapon.get_child(0).get_node("AnimationPlayer").play("idle_"+facing_direction)
 			$Weapon.get_child(0).get_node("AnimationPlayer").seek($AnimationPlayer.get_current_animation_position())
 		return
 		
 	elif (delta_v.angle()>=0 and delta_v.angle()<(PI/2)*0.9):
 		$SpriteIdle.flip_h = false
-		walk_animation = "walk_right"
-		idle_animation = "idle_right"
+		facing_direction = "right"
 	elif (delta_v.angle()>(PI/2)*1.1 and delta_v.angle()<=(PI)*1.01):
 		$SpriteIdle.flip_h = true
-		walk_animation = "walk_right"
-		idle_animation = "idle_right"		
+		facing_direction = "right"
 	elif (delta_v.angle()>=(PI/2)*0.9 and delta_v.angle()<=(PI/2)*1.1):
-		walk_animation = "walk_down"
-		idle_animation = "idle_down"
+		facing_direction = "down"
 	elif (delta_v.angle()<=-(PI/2)*0.9 and delta_v.angle()>=-(PI/2)*1.1):
-		walk_animation = "walk_up"
-		idle_animation = "idle_up"
+		facing_direction = "up"
 	elif (delta_v.angle()<=-(PI/2)*1.1):
 		$SpriteIdle.flip_h = false
-		walk_animation = "walk_left_up"
-		idle_animation = "idle_left_up"
+		facing_direction = "left_up"
 	elif (delta_v.angle()>=-(PI/2)*0.9 and delta_v.angle()<=0):
 		$SpriteIdle.flip_h = true
-		walk_animation = "walk_left_up"
-		idle_animation = "idle_left_up"
-	$AnimationPlayer.play(walk_animation)
+		facing_direction = "left_up"
+	
+	if is_attacking: return
+	$AnimationPlayer.play("walk_"+facing_direction)
 	if $Weapon.get_child_count()>0:
-		$Weapon.get_child(0).get_node("Sprite3").flip_h = $SpriteIdle.flip_h
-		$Weapon.get_child(0).get_node("AnimationPlayer").play(walk_animation)
+		$Weapon.get_child(0).get_node("AnimationPlayer").play("walk_"+facing_direction)
 		$Weapon.get_child(0).get_node("AnimationPlayer").seek($AnimationPlayer.get_current_animation_position())
 	pass
+
+# Manage attack animation
+func _animate_player_attack() -> void:
+	if not is_attacking: return
+	$AnimationPlayer.play("attack_"+facing_direction)
+	$Weapon.get_child(0).get_node("Sprite3").flip_h = $SpriteIdle.flip_h
+	if $SpriteIdle.flip_h and facing_direction=="right":
+		$Weapon.get_child(0).get_node("AnimationPlayer").play("attack_left")
+	elif $SpriteIdle.flip_h and facing_direction=="left_up":
+		$Weapon.get_child(0).get_node("AnimationPlayer").play("attack_right_up")
+	else:
+		$Weapon.get_child(0).get_node("AnimationPlayer").play("attack_"+facing_direction)
+	$Weapon.get_child(0).get_node("AnimationPlayer").seek($AnimationPlayer.get_current_animation_position())
+	
+	# Lounge attack!
+	var delta = Vector2.ZERO
+	if facing_direction == "right" and not $SpriteIdle.flip_h:
+		delta.x += 500
+	if facing_direction == "right" and $SpriteIdle.flip_h:
+		delta.x -= 500
+	if facing_direction == "left_up" and not $SpriteIdle.flip_h:
+		delta.x += 250
+		delta.y -= 250
+	if facing_direction == "left_up" and $SpriteIdle.flip_h:
+		delta.x -= 250
+		delta.y -= 250
+	if facing_direction == "up":
+		delta.y -= 500
+	if facing_direction == "down":
+		delta.y += 500
+	lounge = delta
+	lounge_delay = 0.2
+	
+
+func force_hard_stop() -> void:
+	hard_stop = true
+	
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if "attack_" in anim_name and is_attacking:
+		can_move = true
+		is_attacking = false
+		velocity = -0.5* velocity
+
+	
 
 func disable_player() -> void:
 	hide()
@@ -161,7 +241,6 @@ func enable_player() -> void:
 func _move(delta: float) -> Vector2:
 	var delta_v = Vector2.ZERO
 	
-	#last_attack_dir = _get_attack_direction()
 	
 	if can_move:
 		if Input.is_action_pressed("move_right"):

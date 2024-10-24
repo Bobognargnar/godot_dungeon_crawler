@@ -82,13 +82,13 @@ func _process(delta: float) -> void:
 		queue_free()
 	pass
 
-func start_attack(direction) -> void:
-	if current_state == state.IDLE:
-		print("Attack")
-		$AnimationPlayer.play("attack_left")
-		attack_direction = direction
-		current_state = state.ATTACK
-	return
+#func start_attack(direction) -> void:
+	#if current_state == state.IDLE:
+		#print("Attack")
+		#$AnimationPlayer.play("attack_left")
+		#attack_direction = direction
+		#current_state = state.ATTACK
+	#return
 
 #func creature_hit(body: Node2D) -> void:
 	## Prevent hitting yourself
