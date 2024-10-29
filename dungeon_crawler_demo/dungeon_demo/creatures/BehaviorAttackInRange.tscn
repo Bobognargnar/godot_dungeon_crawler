@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://6aj40lrmo4us"]
+
+[node name="BehaviorAttackInRange" type="Node2D"]

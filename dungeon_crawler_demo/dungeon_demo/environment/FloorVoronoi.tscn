@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://drt7e0c5o7ep7"]
+
+[ext_resource type="Shader" path="res://environment/WallVoronoi.gdshader" id="1_46aj0"]
+[ext_resource type="Texture2D" uid="uid://caonpe7kl1yh3" path="res://assets/uniform_tile.png" id="2_8vji1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l7odu"]
+shader = ExtResource("1_46aj0")
+
+[node name="FloorVoronoi" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_l7odu")
+position = Vector2(362, 275)
+scale = Vector2(14, 12.75)
+texture = ExtResource("2_8vji1")

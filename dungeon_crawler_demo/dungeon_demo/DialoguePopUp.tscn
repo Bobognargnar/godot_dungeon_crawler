@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://6ri84sk5b5up"]
+
+[ext_resource type="Script" path="res://dialogue_pop_up.gd" id="1_1n1as"]
+[ext_resource type="Texture2D" uid="uid://mpudspdccbyk" path="res://assets/message-box.png" id="2_w2dxt"]
+[ext_resource type="Texture2D" uid="uid://cenees5u6v3fg" path="res://assets/illuminated.png" id="3_p3jrf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7p8uo"]
+size = Vector2(125, 56.5)
+
+[node name="DialoguePopUp" type="Area2D"]
+script = ExtResource("1_1n1as")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DialogueBox" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(573, 320)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_w2dxt")
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="CanvasLayer/DialogueBox"]
+offset_left = -169.0
+offset_top = -52.0001
+offset_right = 176.0
+offset_bottom = 74.9999
+theme_override_colors/font_color = Color(0.352941, 0.0901961, 0.054902, 1)
+text = "                       hee eld mappe wast true.
+                       I hath found the entranceth, 
+                       yet the walle hath caved in 
+aft'r me. I can but goeth f'rward. 
+Howbeit, this doth nay trouble me..."
+
+[node name="Letter" type="Sprite2D" parent="CanvasLayer/DialogueBox"]
+position = Vector2(-122.667, -22)
+scale = Vector2(0.579167, 0.5)
+texture = ExtResource("3_p3jrf")
+region_enabled = true
+region_rect = Rect2(200, 272, 168, 200)
+
+[node name="Close" type="Button" parent="CanvasLayer/DialogueBox"]
+offset_left = 138.0
+offset_top = 50.0
+offset_right = 165.0
+offset_bottom = 81.0
+text = "."
+
+[node name="DialogueCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_7p8uo")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="start_dialogue" from="." to="." method="_on_start_dialogue"]
+[connection signal="pressed" from="CanvasLayer/DialogueBox/Close" to="." method="_on_close_dialogue"]

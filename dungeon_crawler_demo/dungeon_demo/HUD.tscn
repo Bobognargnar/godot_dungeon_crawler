@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://kbryvmo0ma51"]
+[gd_scene load_steps=14 format=3 uid="uid://kbryvmo0ma51"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_lgjky"]
+[ext_resource type="Texture2D" uid="uid://76rhuuaof4ee" path="res://assets/background.png" id="2_4kfnb"]
 [ext_resource type="Texture2D" uid="uid://d20a20smejnuj" path="res://assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset_2.png" id="2_sxmwq"]
+[ext_resource type="FontFile" uid="uid://xwtvwpbd88aq" path="res://assets/ancient/Ancient Medium.ttf" id="4_ki8y2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b3fny"]
 bg_color = Color(0, 0, 0, 1)
@@ -45,51 +47,100 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="Animation" id="Animation_ep8ma"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Message:theme_override_constants/shadow_offset_x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-10]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Message:theme_override_constants/shadow_offset_y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Message:theme_override_font_sizes/font_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [64]
+}
+
+[sub_resource type="Animation" id="Animation_nkv1f"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Message:theme_override_constants/shadow_offset_x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 10]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Message:theme_override_constants/shadow_offset_y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [8, 18]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Message:theme_override_font_sizes/font_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [100, 120]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mmded"]
+_data = {
+"RESET": SubResource("Animation_ep8ma"),
+"idle": SubResource("Animation_nkv1f")
+}
+
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_lgjky")
 
-[node name="MessageTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
-[node name="StartButton" type="Button" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -88.5
-offset_top = -86.0
-offset_right = 88.5
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 64
-text = "Start"
-
-[node name="Message" type="Label" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -302.5
-offset_top = -120.0
-offset_right = 302.5
-offset_bottom = 39.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 64
-text = "Smite The Undead!
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
 [node name="HealthBarDelta" type="ProgressBar" parent="."]
 offset_left = 12.0
-offset_top = 575.0
+offset_top = 621.0
 offset_right = 215.0
-offset_bottom = 583.0
+offset_bottom = 629.0
 theme_override_styles/background = SubResource("StyleBoxFlat_b3fny")
 theme_override_styles/fill = SubResource("StyleBoxFlat_sb0t6")
 max_value = 1.0
@@ -99,9 +150,9 @@ show_percentage = false
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 offset_left = 12.0
-offset_top = 575.0
+offset_top = 621.0
 offset_right = 215.0
-offset_bottom = 583.0
+offset_bottom = 629.0
 theme_override_styles/background = SubResource("StyleBoxFlat_u5edt")
 theme_override_styles/fill = SubResource("StyleBoxFlat_aos63")
 max_value = 1.0
@@ -110,9 +161,9 @@ show_percentage = false
 
 [node name="StaminaBar" type="ProgressBar" parent="."]
 offset_left = 12.0
-offset_top = 586.0
+offset_top = 632.0
 offset_right = 215.0
-offset_bottom = 591.0
+offset_bottom = 637.0
 theme_override_styles/background = SubResource("StyleBoxFlat_dg7ds")
 theme_override_styles/fill = SubResource("StyleBoxFlat_e1ye2")
 max_value = 1.0
@@ -122,14 +173,14 @@ show_percentage = false
 [node name="WeaponSlot" type="Node2D" parent="."]
 
 [node name="SlotSprite" type="Sprite2D" parent="WeaponSlot"]
-position = Vector2(32, 522)
+position = Vector2(32, 568)
 scale = Vector2(2, 2)
 texture = ExtResource("2_sxmwq")
 region_enabled = true
 region_rect = Rect2(160, 48, 16, 16)
 
 [node name="Weapon" type="Node2D" parent="WeaponSlot"]
-position = Vector2(32, 522)
+position = Vector2(32, 568)
 scale = Vector2(2, 2)
 
 [node name="Label" type="Label" parent="WeaponSlot"]
@@ -142,7 +193,7 @@ theme_override_font_sizes/font_size = 10
 text = "100%"
 
 [node name="Collection" type="Node2D" parent="."]
-position = Vector2(232, 583)
+position = Vector2(232, 629)
 metadata/_edit_group_ = true
 
 [node name="CollectionSlot" type="Sprite2D" parent="Collection"]
@@ -155,19 +206,19 @@ region_rect = Rect2(160, 48, 16, 16)
 [node name="ItemSlot1" type="Node2D" parent="."]
 
 [node name="SlotSprite" type="Sprite2D" parent="ItemSlot1"]
-position = Vector2(24, 565)
+position = Vector2(24, 611)
 texture = ExtResource("2_sxmwq")
 region_enabled = true
 region_rect = Rect2(160, 48, 16, 16)
 
 [node name="InventoryItem" type="Node2D" parent="ItemSlot1"]
-position = Vector2(24, 564)
+position = Vector2(24, 610)
 
 [node name="Label" type="Label" parent="ItemSlot1"]
 offset_left = 21.0
-offset_top = 543.0
+offset_top = 589.0
 offset_right = 61.0
-offset_bottom = 566.0
+offset_bottom = 612.0
 theme_override_font_sizes/font_size = 10
 text = "1
 "
@@ -176,19 +227,19 @@ text = "1
 position = Vector2(21, 0)
 
 [node name="SlotSprite" type="Sprite2D" parent="ItemSlot2"]
-position = Vector2(24, 565)
+position = Vector2(24, 611)
 texture = ExtResource("2_sxmwq")
 region_enabled = true
 region_rect = Rect2(160, 48, 16, 16)
 
 [node name="InventoryItem" type="Node2D" parent="ItemSlot2"]
-position = Vector2(24, 564)
+position = Vector2(24, 610)
 
 [node name="Label" type="Label" parent="ItemSlot2"]
 offset_left = 21.0
-offset_top = 543.0
+offset_top = 589.0
 offset_right = 61.0
-offset_bottom = 566.0
+offset_bottom = 612.0
 theme_override_font_sizes/font_size = 10
 text = "2
 "
@@ -197,19 +248,19 @@ text = "2
 position = Vector2(42, 0)
 
 [node name="SlotSprite" type="Sprite2D" parent="ItemSlot3"]
-position = Vector2(24, 565)
+position = Vector2(24, 611)
 texture = ExtResource("2_sxmwq")
 region_enabled = true
 region_rect = Rect2(160, 48, 16, 16)
 
 [node name="InventoryItem" type="Node2D" parent="ItemSlot3"]
-position = Vector2(24, 564)
+position = Vector2(24, 610)
 
 [node name="Label" type="Label" parent="ItemSlot3"]
 offset_left = 21.0
-offset_top = 543.0
+offset_top = 589.0
 offset_right = 61.0
-offset_bottom = 566.0
+offset_bottom = 612.0
 theme_override_font_sizes/font_size = 10
 text = "3
 "
@@ -218,19 +269,19 @@ text = "3
 position = Vector2(63, 0)
 
 [node name="SlotSprite" type="Sprite2D" parent="ItemSlot4"]
-position = Vector2(24, 565)
+position = Vector2(24, 611)
 texture = ExtResource("2_sxmwq")
 region_enabled = true
 region_rect = Rect2(160, 48, 16, 16)
 
 [node name="InventoryItem" type="Node2D" parent="ItemSlot4"]
-position = Vector2(24, 564)
+position = Vector2(24, 610)
 
 [node name="Label" type="Label" parent="ItemSlot4"]
 offset_left = 21.0
-offset_top = 543.0
+offset_top = 589.0
 offset_right = 61.0
-offset_bottom = 566.0
+offset_bottom = 612.0
 theme_override_font_sizes/font_size = 10
 text = "4
 "
@@ -239,22 +290,76 @@ text = "4
 position = Vector2(82, 0)
 
 [node name="SlotSprite" type="Sprite2D" parent="ItemSlot5"]
-position = Vector2(24, 565)
+position = Vector2(24, 611)
 texture = ExtResource("2_sxmwq")
 region_enabled = true
 region_rect = Rect2(160, 48, 16, 16)
 
 [node name="InventoryItem" type="Node2D" parent="ItemSlot5"]
-position = Vector2(24, 564)
+position = Vector2(24, 610)
 
 [node name="Label" type="Label" parent="ItemSlot5"]
 offset_left = 21.0
-offset_top = 543.0
+offset_top = 589.0
 offset_right = 61.0
-offset_bottom = 566.0
+offset_bottom = 612.0
 theme_override_font_sizes/font_size = 10
 text = "5
 "
+
+[node name="MessageTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="MenuBackground" type="Sprite2D" parent="."]
+position = Vector2(592, 349)
+scale = Vector2(19.5, 11.9063)
+texture = ExtResource("2_4kfnb")
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -98.0
+offset_top = -156.0
+offset_right = 97.0
+offset_bottom = -94.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_ki8y2")
+theme_override_font_sizes/font_size = 44
+text = "New Game"
+
+[node name="Message" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -608.0
+offset_top = -116.0
+offset_right = 576.0
+offset_bottom = 43.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.588235, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -10
+theme_override_constants/shadow_offset_y = 18
+theme_override_fonts/font = ExtResource("4_ki8y2")
+theme_override_font_sizes/font_size = 64
+text = "Smite The Undead!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mmded")
+}
 
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

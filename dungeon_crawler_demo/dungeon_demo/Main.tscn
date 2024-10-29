@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://q1pjojqjkd3m"]
+[gd_scene load_steps=4 format=3 uid="uid://q1pjojqjkd3m"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_5vgr8"]
-[ext_resource type="PackedScene" uid="uid://bd5qyuaqvyyyw" path="res://Level0.tscn" id="4_0kgsl"]
 [ext_resource type="PackedScene" uid="uid://kbryvmo0ma51" path="res://HUD.tscn" id="4_5oq4r"]
 [ext_resource type="PackedScene" uid="uid://bl6ojkqeo683v" path="res://creatures/Player.tscn" id="4_j4go3"]
 
@@ -12,18 +11,14 @@ script = ExtResource("1_5vgr8")
 wait_time = 2.0
 one_shot = true
 
-[node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(-201, 635)
-
 [node name="Hud" parent="." instance=ExtResource("4_5oq4r")]
 
-[node name="Level0" parent="." instance=ExtResource("4_0kgsl")]
-scale = Vector2(4, 4)
-
 [node name="Player" parent="." instance=ExtResource("4_j4go3")]
-position = Vector2(-200, 637)
-scale = Vector2(3, 3)
-acc = 1500
+position = Vector2(0, 3)
+scale = Vector2(2, 2)
+speed = 400
+acc = 3000
+brake = 3000
 can_open_doors = true
 metadata/_edit_group_ = true
 

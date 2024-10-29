@@ -28,7 +28,6 @@ func show_game_over():
 	await get_tree().create_timer(1.0).timeout
 	$StartButton.show()
 	
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$HealthBar.hide()
@@ -37,6 +36,7 @@ func _ready() -> void:
 	$WeaponSlot.hide()
 	for s in [1,2,3,4,5]:
 		get_node("ItemSlot"+str(s)).hide()
+	$AnimationPlayer.play("idle")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -82,6 +82,7 @@ func _on_start_button_pressed() -> void:
 
 func _on_message_timer_timeout() -> void:
 	$Message.hide()
+	$MenuBackground.hide()
 	get_parent().lets_go()
 
 func update_stamina_bar(delta_stamina: float) -> void:

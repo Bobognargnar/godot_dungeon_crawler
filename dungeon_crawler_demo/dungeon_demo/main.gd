@@ -3,7 +3,9 @@ extends Node
 var score
 
 var player_scene = preload("res://creatures/Player.tscn")
+@export var level = 0
 
+var levels = {0:preload("res://Level0.tscn")}
 
 """ Collision layer convention:
 	layer - where I am
@@ -25,7 +27,31 @@ func _ready() -> void:
 		if creature.name != "Player":
 			creature.target = $Player
 			
-	# TODO - maybe loading level0 here rather than having it in the main? 
+	# Loading level here
+	var Level = levels[level].instantiate()
+	Level.set_name("Level")
+	self.add_child(Level)
+	
+	# Connect to dialogue manager
+	Level.start_dialogue.connect(_on_dialogue_started)
+	Level.stop_dialogue.connect(_on_dialogue_stopped)
+	
+
+func _on_dialogue_started() -> void:
+	var creatures = []
+	findByClass(self, "CharacterBody2D", creatures)
+	for creature in creatures:
+		print(creature.name)
+		creature.can_move = false
+		print(creature.can_move)
+
+func _on_dialogue_stopped() -> void:
+	var creatures = []
+	findByClass(self, "CharacterBody2D", creatures)
+	for creature in creatures:
+		print(creature.name)
+		creature.can_move = true
+		print(creature.can_move)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -51,12 +77,23 @@ func game_over() -> void:
 # Called by clicking on START button in HUD
 func new_game():
 	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	$Player.start($StartPosition.position)
+	#$Player.start($StartPosition.position)
+	var Level = get_node("Level")
+	$Player.start(Level.get_node("StartPosition").position)
+	
 	$StartTimer.start()
 	$Hud.show_message("Get Ready")
 	
 func lets_go() -> void:
 	$Player.enable_player()
+	# Enable level dialogue triggers
+	var dialogues = []
+	findByClass(self, "DialoguePopUp", dialogues)
+	print("....")
+	print(dialogues)
+	for dialogue in dialogues:
+		print(dialogue)
+		dialogue.get_node("DialogueTrigger").disabled = false
 
 
 func _on_player_stamina_change(stam: float) -> void:

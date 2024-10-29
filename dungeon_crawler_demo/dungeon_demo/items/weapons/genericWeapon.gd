@@ -39,7 +39,7 @@ var return_movement = {
 	}
 
 @export var attack_time = 0.1
-@export var wait_time = 0.3
+@export var wait_time = 0.1
 @export var return_time = 0.1
 
 var hit_enemies = {}
