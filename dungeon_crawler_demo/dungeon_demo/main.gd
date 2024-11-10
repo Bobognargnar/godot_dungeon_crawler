@@ -20,17 +20,19 @@ var levels = {0:preload("res://Level0.tscn")}
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
+	# Loading level here
+	var Level = levels[level].instantiate()
+	Level.set_name("Level")
+	self.add_child(Level)
+	
 	# Initializing all the creatures to have the player as target.
 	var creatures = []
 	findByClass(self, "CharacterBody2D", creatures)
 	for creature in creatures:
 		if creature.name != "Player":
+			print(creature)
 			creature.target = $Player
-			
-	# Loading level here
-	var Level = levels[level].instantiate()
-	Level.set_name("Level")
-	self.add_child(Level)
+	
 	
 	# Connect to dialogue manager
 	var dialogueBoxes = []

@@ -1,11 +1,11 @@
 extends StaticBody2D
 
 var tile_regions = {
-	"open_down": Rect2(112,64,32,16),
-	"open_up": Rect2(112,80,32,16),
+	"open_down": Rect2(64,192,128,64),
+	"open_up": Rect2(64,192,128,64),
 	"open_right": Rect2(160,96,16,32),
 	"open_left": Rect2(160,128,16,32),
-	"closed": Rect2(96,96,32,16),
+	"closed": Rect2(64,128,128,64),
 	}
 
 @export var key_id: int = 0 # id 0 means not locked

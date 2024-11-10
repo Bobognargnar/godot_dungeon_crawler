@@ -51,6 +51,9 @@ var lounge_delay = 0.0
 var hard_stop = false
 var freeze_animation = false
 
+# Targetting component
+var target = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# TODO manage dynamic equipment with creature names
@@ -111,7 +114,7 @@ func _process(delta: float) -> void:
 	
 	# Component behaviors
 	if get_node("BehaviorAttackInRange"):
-		print("This little shits attacks when player is in range")
+		get_node("BehaviorAttackInRange").execute()
 
 	
 

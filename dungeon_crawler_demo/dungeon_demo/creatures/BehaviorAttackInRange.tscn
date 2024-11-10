@@ -1,3 +1,8 @@
-[gd_scene format=3 uid="uid://6aj40lrmo4us"]
+[gd_scene load_steps=2 format=3 uid="uid://6aj40lrmo4us"]
+
+[ext_resource type="Script" path="res://creatures/behavior_attack_in_range.gd" id="1_hi6gm"]
 
 [node name="BehaviorAttackInRange" type="Node2D"]
+script = ExtResource("1_hi6gm")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]

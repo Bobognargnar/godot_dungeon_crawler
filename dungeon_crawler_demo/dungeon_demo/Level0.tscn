@@ -1,40 +1,39 @@
-[gd_scene load_steps=19 format=4 uid="uid://bd5qyuaqvyyyw"]
+[gd_scene load_steps=22 format=4 uid="uid://bd5qyuaqvyyyw"]
 
 [ext_resource type="Script" path="res://level_0.gd" id="1_whyyf"]
 [ext_resource type="Shader" path="res://environment/PixelateShader.gdshader" id="3_hbc6w"]
 [ext_resource type="Texture2D" uid="uid://cppjklm0a8ud7" path="res://assets/wall_tileset.png" id="3_ntd4i"]
 [ext_resource type="PackedScene" uid="uid://bej7ojktqrm1p" path="res://items/Loot.tscn" id="4_h4jq2"]
+[ext_resource type="PackedScene" uid="uid://cddd555118grx" path="res://environment/doors/DoubleHorizontal.tscn" id="5_1pmb7"]
 [ext_resource type="PackedScene" uid="uid://dd1bgsnxjoouj" path="res://items/weapons/Sword.tscn" id="5_bsnld"]
 [ext_resource type="Shader" path="res://environment/FloorVoronoi.gdshader" id="6_54qi2"]
 [ext_resource type="PackedScene" uid="uid://balcxtqsnxj2d" path="res://creatures/roamingCreatures/Enemy.tscn" id="7_nwqde"]
 [ext_resource type="Texture2D" uid="uid://caonpe7kl1yh3" path="res://assets/uniform_tile.png" id="7_wsf7e"]
 [ext_resource type="PackedScene" uid="uid://6ri84sk5b5up" path="res://DialoguePopUp.tscn" id="9_w8ps1"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rilps"]
-shader = ExtResource("6_54qi2")
-shader_parameter/tileset_texture_size = null
-shader_parameter/tile_size = null
-shader_parameter/camera_offset = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mvgdi"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_kicy3"]
+outlines = Array[PackedVector2Array]([PackedVector2Array(-563, -808.5, 862.5, -822.5, 778, 230, -512, 218.5)])
+parsed_collision_mask = 4294967041
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yca0t"]
 texture = ExtResource("3_ntd4i")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 9, -32, 9)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -32, 32, -32, 32, 32, 0, 32)
 1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(32, -32, 7.5, -32, 8, 32, 32, 32)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(32, -32, -32, -32, -32, 0, 32, 0)
 2:0/0 = 0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, 8.5, 32, 8, 9, -32, 9)
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(32, -32, -32, -32, -32, 0, 32, 0)
 3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 0, -32, 0, 32, -32, 32)
 0:1/0 = 0
 0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 9, -32, 9)
 1:1/0 = 0
-1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9.5, -32, -32, -32, -32, 32, -9, 32)
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, 0, 32, 0, 0, -32, 0)
 2:1/0 = 0
 2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 0, -32, 0, 32, -32, 32)
 3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 0, -32, 0, 32, -32, 32)
 0:2/0 = 0
 1:2/0 = 0
 2:2/0 = 0
@@ -43,11 +42,22 @@ texture_region_size = Vector2i(64, 64)
 1:3/0 = 0
 2:3/0 = 0
 3:3/0 = 0
+4:0/0 = 0
+4:1/0 = 0
+4:2/0 = 0
+4:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hjhpl"]
+texture = ExtResource("3_ntd4i")
+texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSet" id="TileSet_4y07q"]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 3
 sources/0 = SubResource("TileSetAtlasSource_yca0t")
+sources/1 = SubResource("TileSetAtlasSource_hjhpl")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mvgdi"]
 
 [sub_resource type="Gradient" id="Gradient_tgplf"]
 colors = PackedColorArray(0.0862745, 0.12549, 0.247059, 1, 0, 0, 0, 0)
@@ -66,34 +76,47 @@ colors = PackedColorArray(0.0873416, 0.126405, 0.246143, 1, 0, 0, 0, 0)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ti5ma"]
 gradient = SubResource("Gradient_xr1qu")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rilps"]
+shader = ExtResource("6_54qi2")
+shader_parameter/tileset_texture_size = null
+shader_parameter/tile_size = null
+shader_parameter/camera_offset = null
+
 [node name="Level0" type="Node2D"]
 position = Vector2(-1, 0)
 scale = Vector2(2, 2)
 script = ExtResource("1_whyyf")
 
-[node name="Pavement" type="Sprite2D" parent="."]
-visible = false
-material = SubResource("ShaderMaterial_rilps")
-position = Vector2(306.5, -32)
-scale = Vector2(1.136, 1)
-texture = ExtResource("7_wsf7e")
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_kicy3")
 
-[node name="walls" type="TileMapLayer" parent="."]
+[node name="pavement" type="TileMapLayer" parent="NavigationRegion2D"]
+position = Vector2(0, -384.5)
+tile_map_data = PackedByteArray("AAD//wYAAAAEAAEAAAAAAAYAAAAEAAEAAAAAAAUAAAAEAAEAAAD//wUAAAAEAAEAAAD//wQAAAAEAAEAAAD//wMAAAAEAAEAAAAAAAQAAAAEAAEAAAAAAAMAAAAEAAEAAAAAAAIAAAAEAAEAAAD//wIAAAAEAAEAAAD//wEAAAAEAAEAAAAAAAEAAAAEAAEAAAABAAEAAAAEAAEAAAD+/wEAAAAEAAEAAAD+/wAAAAAEAAEAAAD//wAAAAAEAAEAAAAAAAAAAAAEAAEAAAABAAAAAAAEAAEAAAD8//z/AAAEAAEAAAD9//z/AAAEAAEAAAD+//z/AAAEAAEAAAD///z/AAAEAAEAAAAAAPz/AAAEAAEAAAABAPz/AAAEAAEAAAACAPz/AAAEAAEAAAADAPz/AAAEAAEAAAADAP3/AAAEAAEAAAACAP3/AAAEAAEAAAABAP3/AAAEAAEAAAAAAP3/AAAEAAEAAAD///3/AAAEAAEAAAD+//3/AAAEAAEAAAD9//3/AAAEAAEAAAD8//3/AAAEAAEAAAD8//7/AAAEAAEAAAD9//7/AAAEAAEAAAD+//7/AAAEAAEAAAD///7/AAAEAAEAAAAAAP7/AAAEAAEAAAABAP7/AAAEAAEAAAACAP7/AAAEAAEAAAADAP7/AAAEAAEAAAD/////AAAEAAEAAAAAAP//AAAEAAEAAAA=")
+tile_set = SubResource("TileSet_4y07q")
+
+[node name="walls" type="TileMapLayer" parent="NavigationRegion2D"]
 material = SubResource("ShaderMaterial_mvgdi")
 position = Vector2(0, -384.5)
-tile_map_data = PackedByteArray("AAD+////AAAAAAAAAAD/////AAAAAAEAAAAAAP//AAAAAAEAAAABAP//AAAAAAAAAAD9/wAAAAABAAAAAAD9/wEAAAABAAAAAAD+/wQAAAABAAAAAAABAAQAAAABAAEAAAD9////AAABAAAAAAABAAMAAAABAAEAAAABAAIAAAACAAAAABD+/wMAAAABAAAAAAD+/wIAAAACAAAAAAACAP//AAABAAEAAAACAAAAAAABAAEAAAACAAEAAAABAAEAAAD9/wIAAAACAAEAABACAAIAAAACAAEAAAD+/wUAAAABAAAAAAD+/wYAAAABAAAAAAABAAUAAAABAAEAAAABAAYAAAABAAEAAAD//wcAAAAAAAAAAAAAAAcAAAAAAAAAAAABAAcAAAACAAEAAAD+/wcAAAACAAEAABACAAMAAAADAAAAAAACAAQAAAADAAAAAAACAAUAAAADAAAAAAACAAYAAAADAAAAAAACAAcAAAADAAAAAAADAAMAAAADAAAAAAADAAQAAAADAAAAAAADAAUAAAADAAAAAAADAAYAAAADAAAAAAADAAcAAAADAAAAAAD8/wgAAAADAAAAAAD8/wkAAAADAAAAAAD9/wgAAAADAAAAAAD9/wkAAAADAAAAAAD+/wgAAAADAAAAAAD+/wkAAAADAAAAAAD//wgAAAADAAAAAAD//wkAAAADAAAAAAAAAAgAAAADAAAAAAAAAAkAAAADAAAAAAABAAgAAAADAAAAAAABAAkAAAADAAAAAAACAAgAAAADAAAAAAACAAkAAAADAAAAAAADAAgAAAADAAAAAAADAAkAAAADAAAAAAD8/wAAAAADAAAAAAD8/wEAAAADAAAAAAD8/wIAAAADAAAAAAD8/wMAAAADAAAAAAD8/wQAAAADAAAAAAD8/wUAAAADAAAAAAD8/wYAAAADAAAAAAD8/wcAAAADAAAAAAD8//7/AAADAAAAAAD8////AAADAAAAAAD9//7/AAADAAAAAAD+//7/AAADAAAAAAD///7/AAADAAAAAAAAAP7/AAADAAAAAAABAP7/AAADAAAAAAACAP7/AAADAAAAAAADAP7/AAADAAAAAAADAP//AAADAAAAAAADAAAAAAADAAAAAAADAAEAAAADAAAAAAADAAIAAAADAAAAAAD9/wMAAAADAAAAAAD9/wQAAAADAAAAAAD9/wUAAAADAAAAAAD9/wYAAAADAAAAAAD9/wcAAAADAAAAAAA=")
+tile_map_data = PackedByteArray("AAD+////AAABAAAAAAABAP//AAABAAAAAAD9/wAAAAAAAAAAAAD9/wEAAAAAAAAAAAD+/wQAAAAAAAAAAAABAAQAAAADAAAAAAD9////AAABAAEAAAABAAMAAAADAAAAAAABAAIAAAABAAEAABD+/wMAAAAAAAAAAAD+/wIAAAABAAEAAAACAP//AAABAAEAABACAAAAAAADAAAAAAACAAEAAAADAAAAAAD9/wIAAAADAAEAABACAAIAAAADAAEAAAD+/wUAAAAAAAAAAAD+/wYAAAAAAAAAAAABAAUAAAADAAAAAAABAAYAAAADAAAAAAD//wcAAAABAAAAAAAAAAcAAAABAAAAAAABAAcAAAADAAEAAAD+/wcAAAADAAEAABACAAMAAAAEAAAAAAACAAQAAAAEAAAAAAACAAUAAAAEAAAAAAACAAYAAAAEAAAAAAACAAcAAAAEAAAAAAADAAMAAAAEAAAAAAADAAQAAAAEAAAAAAADAAUAAAAEAAAAAAADAAYAAAAEAAAAAAADAAcAAAAEAAAAAAD8/wgAAAAEAAAAAAD8/wkAAAAEAAAAAAD9/wgAAAAEAAAAAAD9/wkAAAAEAAAAAAD+/wgAAAAEAAAAAAD+/wkAAAAEAAAAAAD//wgAAAAEAAAAAAD//wkAAAAEAAAAAAAAAAgAAAAEAAAAAAAAAAkAAAAEAAAAAAABAAgAAAAEAAAAAAABAAkAAAAEAAAAAAACAAgAAAAEAAAAAAACAAkAAAAEAAAAAAADAAgAAAAEAAAAAAADAAkAAAAEAAAAAAD8/wAAAAAEAAAAAAD8/wEAAAAEAAAAAAD8/wIAAAAEAAAAAAD8/wMAAAAEAAAAAAD8/wQAAAAEAAAAAAD8/wUAAAAEAAAAAAD8/wYAAAAEAAAAAAD8/wcAAAAEAAAAAAD8////AAABAAAAAAADAP//AAABAAAAAAADAAAAAAAEAAAAAAADAAEAAAAEAAAAAAADAAIAAAAEAAAAAAD9/wMAAAAEAAAAAAD9/wQAAAAEAAAAAAD9/wUAAAAEAAAAAAD9/wYAAAAEAAAAAAD9/wcAAAAEAAAAAAD7////AAADAAEAABD7//7/AAAAAAAAAAD7//3/AAAAAAAAAAD7//z/AAAAAAAAAAD7//v/AAAAAAAAAAD8//v/AAABAAAAAAD9//v/AAABAAAAAAD+//v/AAABAAAAAAD///v/AAABAAAAAAAAAPv/AAABAAAAAAABAPv/AAABAAAAAAACAPv/AAABAAAAAAAEAP7/AAADAAAAAAAEAP3/AAADAAAAAAAEAPz/AAADAAAAAAAEAPv/AAADAAAAAAADAPv/AAABAAAAAAAEAP//AAADAAEAAAD7//r/AAAEAAAAAAD8//r/AAAEAAAAAAD9//r/AAAEAAAAAAD+//r/AAAEAAAAAAD///r/AAAEAAAAAAAAAPr/AAAEAAAAAAABAPr/AAAEAAAAAAACAPr/AAAEAAAAAAADAPr/AAAEAAAAAAAEAPr/AAAEAAAAAAD6//r/AAAEAAAAAAD6//v/AAAEAAAAAAD6//z/AAAEAAAAAAD6//3/AAAEAAAAAAD6//7/AAAEAAAAAAD6////AAAEAAAAAAD6/wAAAAAEAAAAAAD7/wAAAAAEAAAAAAAFAP//AAAEAAAAAAAFAP7/AAAEAAAAAAAFAP3/AAAEAAAAAAAFAPz/AAAEAAAAAAAFAPv/AAAEAAAAAAAFAPr/AAAEAAAAAAAEAAAAAAAEAAAAAAAFAAAAAAAEAAAAAAA=")
 tile_set = SubResource("TileSet_4y07q")
 
-[node name="pavement" type="TileMapLayer" parent="."]
-position = Vector2(0, -385)
-tile_map_data = PackedByteArray("AAD//wYAAAADAAEAAAAAAAYAAAADAAEAAAAAAAUAAAADAAEAAAD//wUAAAADAAEAAAD//wQAAAADAAEAAAD//wMAAAADAAEAAAAAAAQAAAADAAEAAAAAAAMAAAADAAEAAAAAAAIAAAADAAEAAAD//wIAAAADAAEAAAD//wEAAAADAAEAAAAAAAEAAAADAAEAAAABAAEAAAADAAEAAAD+/wEAAAADAAEAAAD+/wAAAAADAAEAAAD//wAAAAADAAEAAAAAAAAAAAADAAEAAAABAAAAAAADAAEAAAA=")
-tile_set = SubResource("TileSet_4y07q")
+[node name="Door" parent="NavigationRegion2D" instance=ExtResource("5_1pmb7")]
+position = Vector2(0, -417.5)
+opening = "up_down"
 
 [node name="shadow" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_tvfhm")
-position = Vector2(-0.140769, -377)
+position = Vector2(-86.6403, -377)
 rotation = 1.5708
-scale = Vector2(0.0639994, 256.306)
+scale = Vector2(0.0639994, 83.3069)
+texture = SubResource("GradientTexture1D_ti5ma")
+
+[node name="shadow2" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_tvfhm")
+position = Vector2(86.5, -377)
+rotation = 1.5708
+scale = Vector2(0.0639994, 83.3069)
 texture = SubResource("GradientTexture1D_ti5ma")
 
 [node name="sword" parent="." instance=ExtResource("4_h4jq2")]
@@ -108,11 +131,27 @@ metadata/_edit_group_ = true
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(0, 0.5)
 
-[node name="Enemy" parent="." instance=ExtResource("7_nwqde")]
-position = Vector2(1.5, -349)
+[node name="Enemy2" parent="." instance=ExtResource("7_nwqde")]
+position = Vector2(-164, -570)
+
+[node name="Enemy3" parent="." instance=ExtResource("7_nwqde")]
+position = Vector2(-160.5, -511.5)
+
+[node name="Enemy4" parent="." instance=ExtResource("7_nwqde")]
+position = Vector2(170, -572)
+
+[node name="Enemy5" parent="." instance=ExtResource("7_nwqde")]
+position = Vector2(168.5, -507)
 
 [node name="DialoguePopUp" parent="." instance=ExtResource("9_w8ps1")]
 position = Vector2(2, -136.5)
+
+[node name="Pavement" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_rilps")
+position = Vector2(862.5, -390)
+scale = Vector2(28.3336, 18.0625)
+texture = ExtResource("7_wsf7e")
 
 [connection signal="start_dialogue" from="DialoguePopUp" to="." method="_on_start_dialogue"]
 [connection signal="stop_dialogue" from="DialoguePopUp" to="." method="_on_stop_dialogue"]

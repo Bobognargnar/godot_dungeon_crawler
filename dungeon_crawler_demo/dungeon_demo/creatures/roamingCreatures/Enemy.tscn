@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://balcxtqsnxj2d"]
+[gd_scene load_steps=17 format=3 uid="uid://balcxtqsnxj2d"]
 
 [ext_resource type="Script" path="res://creatures/roamingCreatures/enemy.gd" id="1_f86gy"]
 [ext_resource type="Texture2D" uid="uid://dbaodkx7u1fh5" path="res://assets/enemy_placeholder-Sheet.png" id="2_k1cw0"]
+[ext_resource type="PackedScene" uid="uid://6aj40lrmo4us" path="res://creatures/BehaviorAttackInRange.tscn" id="4_qyong"]
 [ext_resource type="PackedScene" uid="uid://2vrx3wy6icev" path="res://PopUpIndicator.tscn" id="6_duevd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_54f0s"]
@@ -180,11 +181,6 @@ show_percentage = false
 
 [node name="Weapon" type="Node2D" parent="."]
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(42, 0)
-collision_mask = 2
-collide_with_areas = true
-
 [node name="PopUpIndicator" parent="." instance=ExtResource("6_duevd")]
 position = Vector2(0, -18)
 scale = Vector2(3, 3)
@@ -193,5 +189,7 @@ scale = Vector2(3, 3)
 libraries = {
 "": SubResource("AnimationLibrary_2gosp")
 }
+
+[node name="BehaviorAttackInRange" parent="." instance=ExtResource("4_qyong")]
 
 [connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
