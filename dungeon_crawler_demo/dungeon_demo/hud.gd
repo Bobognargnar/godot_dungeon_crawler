@@ -67,6 +67,7 @@ func _process(delta: float) -> void:
 
 
 func _on_start_button_pressed() -> void:
+	$AnimationPlayer.stop()
 	$StartButton.hide()
 	$HealthBar.show()
 	$HealthBarDelta.show()

@@ -33,8 +33,11 @@ func _ready() -> void:
 	self.add_child(Level)
 	
 	# Connect to dialogue manager
-	Level.start_dialogue.connect(_on_dialogue_started)
-	Level.stop_dialogue.connect(_on_dialogue_stopped)
+	var dialogueBoxes = []
+	findDialogues(self,dialogueBoxes)
+	for dialogue in dialogueBoxes:
+		dialogue.start_dialogue.connect(_on_dialogue_started)
+		dialogue.stop_dialogue.connect(_on_dialogue_stopped)
 	
 
 func _on_dialogue_started() -> void:
@@ -63,6 +66,12 @@ func findByClass(node: Node, className : String, result : Array) -> void:
 		result.push_back(node)
 	for child in node.get_children():
 		findByClass(child, className, result)
+
+func findDialogues(node: Node, result : Array) -> void:
+	if node is DialoguePopUp:
+		result.push_back(node)
+	for child in node.get_children():
+		findDialogues(child, result)
 
 func manage_player_health(dam_perc: float) -> void:
 	var hp_left = $Hud.update_health_bar(dam_perc)

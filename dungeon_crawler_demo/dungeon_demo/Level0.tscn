@@ -103,14 +103,16 @@ loot_item = ExtResource("5_bsnld")
 loot_name = "Rusty Sword"
 metadata/_edit_group_ = true
 
+[node name="DialoguePopUp" parent="sword" instance=ExtResource("9_w8ps1")]
+
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(0, 0.5)
 
 [node name="Enemy" parent="." instance=ExtResource("7_nwqde")]
 position = Vector2(1.5, -349)
 
-[node name="Dialogue0" parent="." instance=ExtResource("9_w8ps1")]
+[node name="DialoguePopUp" parent="." instance=ExtResource("9_w8ps1")]
 position = Vector2(2, -136.5)
 
-[connection signal="start_dialogue" from="Dialogue0" to="." method="_on_start_dialogue"]
-[connection signal="stop_dialogue" from="Dialogue0" to="." method="_on_stop_dialogue"]
+[connection signal="start_dialogue" from="DialoguePopUp" to="." method="_on_start_dialogue"]
+[connection signal="stop_dialogue" from="DialoguePopUp" to="." method="_on_stop_dialogue"]

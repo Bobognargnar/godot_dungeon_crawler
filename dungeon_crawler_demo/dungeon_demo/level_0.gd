@@ -5,7 +5,8 @@ var message_queue = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Dialogue0.message_queue = [
+	$DialoguePopUp.enable_box() # Dialogue boxes collision zone are disabled by default
+	$DialoguePopUp.message_queue = [
 		"The old maps were right!\n"+
 		"                        I hath found an entrance,\n"+ 
 		"                        yet the wall has caved in\n"+ 
@@ -15,11 +16,14 @@ func _ready() -> void:
 		"                      I'll have to destroy \n"+
 		"                      all these foul creatures\n"+
 		"and lay this castle to ruin.",
-		"I must get a weapon first, \n" +
-		"                      I lost my sword..."
+		"I must get a weapon\n" +
+		"                      first, I lost my sword..."
 	]
-	print("LEVEL")
-	print($Dialogue0.message_queue)
+	
+	$sword/DialoguePopUp.message_queue = [
+		"Finally! This rusty thing\n"+
+		"                      will do, for a start..."
+		]
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

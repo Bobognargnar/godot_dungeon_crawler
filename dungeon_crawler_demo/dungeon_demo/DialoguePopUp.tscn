@@ -36,7 +36,7 @@ position = Vector2(-122.667, -22)
 scale = Vector2(0.579167, 0.5)
 texture = ExtResource("3_p3jrf")
 region_enabled = true
-region_rect = Rect2(200, 272, 168, 200)
+region_rect = Rect2(736, 88, 160, 184)
 
 [node name="Close" type="Button" parent="CanvasLayer/DialogueBox"]
 offset_left = 138.0
@@ -48,6 +48,7 @@ text = "."
 [node name="DialogueCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_7p8uo")
+disabled = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="start_dialogue" from="." to="." method="_on_start_dialogue"]

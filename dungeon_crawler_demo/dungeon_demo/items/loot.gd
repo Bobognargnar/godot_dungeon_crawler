@@ -29,6 +29,15 @@ func _on_body_entered(body: Node2D) -> void:
 		set_collision_layer_value(1,0)
 		set_collision_mask_value(1,0)
 		
+		# If there's a message attached to this, play the message
+		# Changing the parent prevents the dialogue from disappearing
+		# with the loot.
+		var dialogue = get_node("DialoguePopUp")
+		if dialogue:
+			remove_child(dialogue)
+			get_parent().add_child(dialogue)
+			dialogue.trigger_dialogue()
+		
 		# Keys are managed like so, for now
 		if "key_id" in loot_type:
 			loot_type.key_id = key_id
